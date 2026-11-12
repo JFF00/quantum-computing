@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-23",
+  "source_url": "https://stackoverflow.com/questions/69245836/getting-figure-x-when-drawing-quantum-circuit-with-qiskit-mpl-output-mo",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/23/buggy_23.py",
+  "fixed_ref": "qiskit/23/fixed_23.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.18.3",
+  "test_command": "python -W ignore test_b23.py (buggy, esperado exit 1); python -W ignore test_f23.py (fixed, esperado exit 0)",
+  "environment_notes": "conda osx-64 (Rosetta) Python 3.8.20. El benchmark no indica versiones; se eligió Terra 0.18.3 y el test fue escrito para este proyecto (el framework no incluye test para este bug). Dependencias completas en logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

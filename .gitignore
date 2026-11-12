@@ -1,0 +1,24 @@
+# macOS
+.DS_Store
+
+# Entornos virtuales
+qiskitvenv/
+envs/
+.venv/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# LaTeX (archivos auxiliares)
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+*.bbl
+*.blg

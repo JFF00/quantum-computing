@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-5",
+  "source_url": "https://github.com/Qiskit/qiskit-terra/issues/1446",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/5/buggy_5.py",
+  "fixed_ref": "qiskit/5/fixed_5.py",
+  "python_version": "3.7.16",
+  "qiskit_version": "qiskit-terra 0.7.0",
+  "test_command": "python -W ignore test_b5.py (buggy, esperado exit 1); python -W ignore test_f5.py (fixed, esperado exit 0)",
+  "environment_notes": "conda osx-64 (Rosetta) Python 3.7.16; networkx fijado a 2.3 (versiones posteriores rompen Terra 0.7.0). El issue reporta Terra 0.7.0 y Python 3.7.0. No aparece el SchemaValidationError del issue, pero sí el circuito vacío. Dependencias completas en logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

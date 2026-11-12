@@ -1,0 +1,325 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish]{babel}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage{microtype}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.6em}
+\setlist{itemsep=0.2em, topsep=0.3em}
+
+% Titulo de cada paper y etiquetas de cada parte (sin usar secciones)
+\newcommand{\paper}[1]{\vspace{1.2em}\par{\large\textbf{#1}}\par\vspace{0.2em}\hrule\vspace{0.4em}}
+\newcommand{\parte}[1]{\par\textbf{#1.}\ }
+
+\title{Resumen de papers y de los tests realizados}
+\author{}
+\date{}
+
+\begin{document}
+\maketitle
+
+\paper{1. Evaluar LLMs reparando programas de Qiskit con Bugs4Q}
+
+\parte{Problema}
+Los benchmarks de bugs cuánticos, como Bugs4Q, se van dañando con el tiempo. Cuando Qiskit se actualiza, algunos programas con error dejan de fallar, o las correcciones de referencia dejan de funcionar, y nadie recibe un aviso claro. Entonces un caso puede ``cambiar de etiqueta'' sin que nos demos cuenta. La conclusión es que un caso solo es válido para una versión concreta de Qiskit.
+
+\parte{Solución}
+Revisar cada caso del benchmark por separado, para cada versión de Qiskit, y evaluar a los modelos solo donde el caso sigue siendo válido.
+
+\parte{Metodología}
+Juntaron dos conjuntos de Bugs4Q y quedaron con 67 errores reales sin repetir. Escribieron tests que se pueden ejecutar para cada uno. Cada caso se probó en 6 versiones de Qiskit (de la 0.25 a la 2.3.1). Probaron cuatro modelos de OpenAI y le pidieron hasta 10 intentos de arreglo a cada uno.
+
+\parte{Resultados}
+El mejor modelo (GPT-5.4) arregló cerca del 49\% de los casos. Los modelos más viejos o chicos quedaron entre 23\% y 30\%. Todos andan mucho mejor en Qiskit 0.45 y bajan fuerte desde la versión 1.0. Entre el 13\% y el 56\% de las fallas (según el modelo) se deben solo a funciones que ya no existen, no a que el modelo no entienda el problema. Además, el 64\% de los arreglos exitosos pasó en casos que en esa versión ya no eran válidos. Por eso los autores recomiendan fijar siempre la versión del entorno al evaluar.
+
+\paper{2. Reparar programas cuánticos con ChatGPT}
+
+\parte{Problema}
+Los programas cuánticos tienen errores raros (puertas, mediciones, ruido) que cuestan mucho encontrar a mano. Para el software normal ya existen LLMs que ayudan a reparar, pero para el cuántico casi no hay herramientas.
+
+\parte{Solución}
+Probar si ChatGPT puede servir como ayudante para reparar código cuántico, y ver cuánta información necesita para lograrlo.
+
+\parte{Metodología}
+Usaron 38 errores reales de Bugs4Q en Qiskit. Probaron cuatro formas de preguntarle: solo el código, código con descripción corta, con descripción detallada, y lo mismo avisando que el programa tiene errores. Si el arreglo fallaba, le mostraban el error o el test que no pasó y volvía a intentar. Medían si al menos uno de 5 intentos lo arreglaba, y también el promedio de éxito.
+
+\parte{Resultados}
+ChatGPT arregló 29 de 38 errores (76\%) cuando tenía descripción detallada y retroalimentación. Con solo el código arregló apenas 10. Los errores clásicos los resolvió todos, los cuánticos simples en 84\%, pero los algoritmos cuánticos complejos o muy propios solo en 28\%. Es una herramienta útil, pero depende de que la persona explique bien el problema.
+
+\paper{3. QuanBench+: un benchmark para generar código cuántico en varios frameworks}
+
+\parte{Problema}
+Casi todos los benchmarks usan un solo framework (por ejemplo Qiskit). Así no se sabe si el modelo entiende de verdad la computación cuántica o solo conoce bien la librería. Además, el código cuántico da resultados con probabilidades, y eso complica saber si algo está correcto.
+
+\parte{Solución}
+Un benchmark con las mismas 42 tareas en Qiskit, PennyLane y Cirq, para comparar de manera justa.
+
+\parte{Metodología}
+Las tareas son de algoritmos (31), preparación de estados (6) y descomposición de puertas (5). Para decidir si una respuesta es correcta ejecutan el código y comparan la distribución de resultados con la solución de referencia usando la divergencia KL con un límite de 0,05. Probaron tres cosas: un solo intento, darle al modelo el inicio del código, y dejarlo corregir hasta 5 veces con el error de ejecución.
+
+\parte{Resultados}
+Qiskit es el más fácil (hasta 59,5\% al primer intento), Cirq queda en medio (54,8\%) y PennyLane es el más difícil (42,9\%). Con la retroalimentación de la ejecución sube a 83\%, 76\% y 67\% respectivamente. Los errores de sintaxis casi desaparecen, pero los que quedan son sobre todo respuestas incorrectas y errores de lógica. Los autores concluyen que los modelos dependen más de haber visto la librería que de razonar de verdad sobre lo cuántico.
+
+\paper{4. Reparación cuántica explicable con trazas de prueba verificables}
+
+\parte{Problema}
+Cuando un LLM arregla un programa, explica en palabras por qué, pero esa explicación se escribe después y nadie puede comprobar que sea cierta. En cuántico es peligroso, porque un cambio chico en un circuito puede cambiar todo su comportamiento.
+
+\parte{Solución}
+Hacer que la explicación sea algo que se pueda ejecutar y comprobar, y no solo un texto. Para eso el modelo debe justificar cada cambio con pasos formales que luego se verifican.
+
+\parte{Metodología}
+Tres etapas: el LLM propone arreglos con justificaciones ordenadas; esas justificaciones se convierten en pasos de prueba; y varios verificadores formales los revisan (equivalencia de circuitos, cálculo ZX, estabilizadores y simulación). Solo se aceptan los arreglos cuya explicación pasa todas las pruebas. Usaron 500 circuitos de QASMBench, de 2 a 130 qubits, y les metieron 5.000 errores con cinco tipos de modificación.
+
+\parte{Resultados}
+Reparó el 76,1\% de los casos, un poco más que los otros métodos con los que lo compararon (72,9\% y 74,6\%). El 96,1\% de los arreglos aceptados eran correctos de verdad, y el 94,8\% de las explicaciones se pudieron verificar, contra solo 18,6\% en las explicaciones normales en texto. Los cambios fueron pequeños. La pieza más importante fue el cálculo ZX. Funcionó igual con varios modelos distintos.
+
+\paper{5. LLMs para ingeniería de software cuántico: oportunidades y desafíos}
+
+\parte{Problema}
+Se usan cada vez más los LLMs en software cuántico, pero faltaba ordenar qué se puede hacer, qué problemas hay y por dónde seguir.
+
+\parte{Solución}
+Es un trabajo de revisión: reúne lo que existe y propone una ruta hasta 2030.
+
+\parte{Metodología}
+Revisan cuatro áreas: modelado y análisis de circuitos, generación de código, pruebas y reparación automática. Después listan los problemas propios del mundo cuántico y los ordenan en corto, mediano y largo plazo.
+
+\parte{Resultados}
+Los problemas principales son: pocos datos de calidad para entrenar, código que parece correcto pero hace algo distinto, la dificultad de probar programas cuyos resultados son aleatorios, la diferencia entre simulador y computador real, y las limitaciones físicas del chip. La ruta propone primero mejores datos y benchmarks, luego tener en cuenta el hardware y el ruido, y al final trabajar en conjunto con humanos para descubrir algoritmos.
+
+\paper{6. Más allá de las reglas: detectar errores cuánticos con LLMs}
+
+\parte{Problema}
+Las herramientas que revisan código con reglas fijas (como LintQ) hay que mantenerlas a mano, se desactualizan cuando cambian las librerías y fallan con problemas que dependen del contexto.
+
+\parte{Solución}
+Cambiar las reglas por un LLM. Hicieron dos versiones: una que le pide razonar paso a paso (CoT) y otra que además busca ejemplos reales parecidos en una base de datos (RAG).
+
+\parte{Metodología}
+Probaron 10 tipos de problemas en 55 programas de Qiskit (43 reales y 12 inventados para tipos poco comunes). Compararon precisión, recall y F1 con una respuesta correcta revisada a mano y con LintQ.
+
+\parte{Resultados}
+LintQ sacó un F1 de 0,41. Con CoT subió a 0,70 y con RAG a 0,68. CoT encuentra casi todos los errores pero da más falsas alarmas, y RAG da menos falsas alarmas pero deja pasar más errores. El modelo también aguantó cuando le cambiaron los nombres de las variables. Cuenta más qué tan claro es el tipo de error que cuántos ejemplos se le dan.
+
+\paper{7. QBench: un benchmark de reparación de código cuántico}
+
+\parte{Problema}
+No había un benchmark estándar, que se pudiera ejecutar y repetir, para medir la reparación automática de software cuántico. Además, los resultados son aleatorios y el entorno es frágil (versiones de compiladores y librerías), lo que complica decidir si un arreglo es correcto.
+
+\parte{Solución}
+QBench, una colección de 520 tareas reales sacadas de 129 repositorios. Cada tarea trae su entorno aislado, su forma de comprobar la corrección y el protocolo de evaluación.
+
+\parte{Metodología}
+Hay dos pistas: RepoTrack (264 casos de errores en la infraestructura, como compiladores y simuladores, que suelen tocar varios archivos) y ScriptTrack (256 casos de programas de usuario, con arreglos más locales). Las comprobaciones son de tres tipos: exactas, con tolerancia numérica y probabilísticas (repitiendo muchas mediciones). Evaluaron 10 modelos y métodos clásicos de reparación.
+
+\parte{Resultados}
+El mejor modelo (GPT-4o) resolvió el 50,1\% al primer intento, 38,6\% en RepoTrack y 61,7\% en ScriptTrack. Los métodos clásicos quedaron entre 11\% y 17\%. Las comprobaciones probabilísticas son las más difíciles, porque los modelos hacen arreglos frágiles que pasan una vez y fallan al repetir (cerca de 7\% de los ``éxitos'' fallaron al repetirlos). Dejar que el modelo reintente con la retroalimentación del test mejoró bastante, sobre todo en RepoTrack.
+
+\paper{8. ¿Falla por ser cuántico o por ser difícil? Un control justo}
+
+\parte{Problema}
+Muchos estudios dicen que los LLMs fallan por no entender la física cuántica, pero lo comparan con un control demasiado fácil. Así cualquier falla parece cuántica.
+
+\parte{Solución}
+Usar un control de dificultad parecida: comparar la transformada de Fourier clásica (FFT) con la cuántica de 3 qubits (QFT-3), que tienen el mismo tipo de dificultad (ordenar bien pasos que no se pueden intercambiar), pero la FFT no necesita física cuántica.
+
+\parte{Metodología}
+Probaron 9 modelos de 4 proveedores con 12 pedidos en parejas y 5 niveles de dificultad. Ejecutaron lo que generaban en Qiskit y clasificaron los tipos de falla.
+
+\parte{Resultados}
+Con el control fácil, el 100\% de las fallas parecían cuánticas, pero con el control parejo bajó al 50\%. Los modelos fuertes pasan la FFT y fallan la QFT-3, lo que sí es un problema cuántico real. Los débiles fallan en las dos, así que su problema es general. El patrón más común es copiar la ``forma'' de un circuito sin comprobar que realmente haga lo pedido. En muchas tareas puramente cuánticas no existe un equivalente clásico difícil, así que ahí no se puede medir bien. Los autores recomiendan siempre usar controles de dificultad parecida.
+
+\paper{9. ¿Están listos los LLMs para la ingeniería de software cuántico?}
+
+\parte{Problema}
+Se usan LLMs en software cuántico, pero no estaba claro en qué etapas ayudan de verdad ni qué limitaciones tienen.
+
+\parte{Solución}
+Una revisión sistemática de la literatura para responder tres preguntas: qué etapas cubren, qué modelos se usan y qué limitaciones aparecen.
+
+\parte{Metodología}
+Revisaron los estudios existentes y los ordenaron según el ciclo de vida del software, los modelos usados y los problemas reportados.
+
+\parte{Resultados}
+Casi todo se concentra en escribir código (generar circuitos, código Qiskit o PennyLane). También hay algo de reparación y migración entre versiones. Pruebas y diseño casi no se han explorado, y requisitos y despliegue no tienen evidencia. Dominan los modelos de OpenAI, lo que complica repetir los estudios. Las limitaciones más repetidas son errores de significado (código que compila pero hace otra cosa), pocos datos, bajo rendimiento en problemas complejos, mucha sensibilidad a cómo se escribe el pedido y benchmarks demasiado simples. La conclusión es que hoy sirven como asistentes y su código debe validarse antes de usarlo.
+
+\paper{10. Cómo la IA, los LLMs y la ciencia cuántica pueden ayudarse}
+
+\parte{Problema}
+Se quería ver cómo los LLMs pueden servir en la investigación cuántica y si la computación cuántica puede ayudar a la IA.
+
+\parte{Solución}
+Un análisis de usos, basado en pruebas con GPT-4 y Bard/Gemini, y una propuesta de un chatbot de código abierto especializado en ciencia cuántica, que use RAG con los artículos de arXiv.
+
+\parte{Metodología}
+Probaron los modelos en cinco usos: aprender y estudiar, revisar artículos, escribir y gestionar proyectos, programar, y generar ideas. También hicieron pruebas con tablas, gráficos y referencias, y repasaron otras técnicas de machine learning usadas en física y hardware cuántico.
+
+\parte{Resultados}
+Los LLMs explican bien los conceptos básicos, ayudan a resumir artículos y son muy buenos escribiendo código en Python. Pero inventan datos, referencias y funciones que no existen, y fallan en razonamientos finos (GPT-4 sacó 69/100 en un examen de Scott Aaronson). Los gráficos que generan no tienen sentido físico. En el otro sentido, la computación cuántica no da hoy ninguna ventaja real para la IA, y los LLMs no se pueden correr en computadores cuánticos en el corto o mediano plazo. Sirven los algoritmos clásicos inspirados en lo cuántico, como la compresión de modelos con redes de tensores. En resumen, el LLM es un asistente y hace falta que el usuario sepa del tema para detectar errores.
+
+\paper{11.}
+
+\parte{Problema}
+Que un código cuántico se ejecute sin errores no significa que dé la respuesta correcta en problemas científicos.
+
+\parte{Solución}
+Q-SAGE, un ciclo en el que el LLM genera el código, se ejecuta, se compara el número obtenido con el de un método clásico exacto, y si no coincide se le devuelve el resultado al modelo para que corrija (hasta 10 intentos).
+
+\parte{Metodología}
+Probaron cinco modelos (entre ellos DeepSeek-V3.2, Qwen3-Coder y GPT-5.2) en cinco familias de problemas: Fermi-Hubbard, Ising, MaxCut, modelo de Schwinger y estructura molecular.
+
+\parte{Resultados}
+La retroalimentación sube bastante el éxito, y casi toda la mejora ocurre en los primeros 5 intentos. Los problemas más directos (Ising y MaxCut) pasan del 85\%, mientras que los que requieren transformaciones complicadas o simular en el tiempo andan mucho peor. GPT-5.2 fue el mejor. Los modelos chicos fallan por sintaxis o por usar mal las librerías, mientras que los avanzados escriben código que corre pero con números imprecisos. Iterar también cuesta mucho más tiempo. La conclusión es que lo que importa es la precisión numérica.
+
+\paper{12.}
+
+\parte{Problema}
+Se supone que darle más contexto al LLM (documentación, análisis del código, resultados de ejecución) ayuda a reparar mejor, pero no estaba claro si siempre es así en programas de Qiskit.
+
+\parte{Solución}
+LINTREPAIR-RAG-Q, un sistema con tres partes: un analizador de código con reglas fijas, un detector basado en LLM que consulta una base de conocimiento, y un ciclo de reparación que ejecuta el arreglo y le devuelve el error al modelo (hasta 3 veces).
+
+\parte{Metodología}
+Crearon Q-DEFECTS40, con 40 programas de Qiskit 2.x (32 con error y 8 limpios) en tres grupos: cambios de API (12), errores estructurales (11) y errores semánticos silenciosos (9), que corren sin avisar pero dan resultados incorrectos. Probaron 18 modelos con y sin ese contexto adicional.
+
+\parte{Resultados}
+Unir el analizador con el detector LLM subió el recall de 0,72 a 0,81 sin falsas alarmas. En promedio la reparación mejoró 16 puntos. Pero depende del tipo de error: en cambios de API la mejora fue enorme (+50\%), en estructurales nada, y en los semánticos silenciosos empeoró (-9\%). En los modelos fuertes el contexto los distrae o los convence de que no hay error. Los avisos para mitigarlo ayudaron a algunos modelos y perjudicaron a otros. La conclusión es que fundamentar ayuda con errores de sintaxis y APIs viejas, pero puede estorbar con los errores semánticos.
+
+\paper{13.}
+
+\parte{Problema}
+En programas híbridos (VQE, QAOA, QML), más del 75\% de los errores no hacen caer el programa: corre y converge a un resultado equivocado (parámetros mal puestos, gradientes congelados, signos invertidos). Los benchmarks actuales casi solo miran errores que lanzan excepciones.
+
+\parte{Solución}
+HyQDB, un sistema de dos niveles. Primero, detectores automáticos buscan evidencia (hardware, optimización y física) y se la pasan al LLM. Si ninguno encuentra nada, se interpreta como un error de concepto: el LLM primero deduce qué quería hacer el programa y luego compara el código con esa intención.
+
+\parte{Metodología}
+Crearon QFaultBench, con 62 tareas de reparación en 10 algoritmos de PennyLane. Hay un grupo de desarrollo (34 tareas hechas con LLM) y otro de prueba (28 tareas hechas por expertos humanos).
+
+\parte{Resultados}
+En el grupo de prueba, el modelo solo arregla 45\%, con la evidencia de los detectores 56\%, y con el sistema completo 75\%. El sistema manda al camino correcto entre 76\% y 88\% de los errores de concepto. Mejoró con varios modelos distintos. Para errores mecánicos, dar evidencia ahorra tokens, pero reconstruir la intención gasta entre 2 y 4 veces más.
+
+\paper{14.}
+
+\parte{Problema}
+Faltaba una forma automática de detectar, reparar y comprobar errores en programas cuánticos escritos en OpenQASM 3.0, sin depender de un SDK.
+
+\parte{Solución}
+QBugLM, con cuatro piezas: QBugGen (mete errores a propósito en circuitos buenos), QBugFind (un LLM que encuentra y clasifica el error), QBugFix (otro LLM que lo corrige) y QBugCheck (revisa que el circuito arreglado dé las mismas probabilidades que el original, en un simulador sin ruido).
+
+\parte{Metodología}
+Cuatro tipos de error: sintaxis vieja, estructurales, puertas repetidas y cambios de significado. Usaron circuitos de 5 qubits de MQT Bench (Deutsch-Jozsa, Grover, Bernstein-Vazirani, GHZ y W). Probaron Claude Sonnet 4.6 y Qwen3 Coder Next con tres estilos de pedido (estructurado, CoT y ReAct).
+
+\parte{Resultados}
+El estilo estructurado fue mejor que CoT y ReAct. A un solo intento casi todo falla (menos de 25\%, salvo los estructurales con 60\%), pero con un reintento sube a más del 80\% y con dos queda cerca del 100\%. El modelo abierto Qwen salió entre 4,8 y 9,1 veces más barato y bastante más rápido, aunque en los errores semánticos complejos Claude llegó al 100\% contra 92\%.
+
+\paper{15.}
+
+\parte{Problema}
+Para quien viene del software clásico, el código cuántico es difícil de entender. Se quiso ver si los LLMs pueden explicarlo.
+
+\parte{Solución}
+Pedirle a varios modelos que expliquen algoritmos cuánticos y que personas evalúen la calidad de la explicación.
+
+\parte{Metodología}
+Modelos: GPT-3.5, LLaMA2 y TinyLLaMA. Usaron 7 algoritmos de MQT Bench (como Grover, QFT y QPE). Los pedidos fueron de dos tipos: solo el código, o el código más el nombre del algoritmo y el número de qubits. Cuatro ingenieros de software puntuaron cada explicación de 1 a 5.
+
+\parte{Resultados}
+Explicando desde cero, LLaMA2 sacó 2,78 y GPT-3.5 sacó 2,50, mientras que TinyLLaMA fue mucho peor (1,87). Dar el nombre y el número de qubits mejoró la calidad en todos los modelos. Al repetir, las explicaciones fueron bastante parecidas entre sí. Para mejorar descripciones cortas ya existentes, GPT-3.5 fue el mejor (3,54). Ningún modelo pasó de 4 sobre 5 sin contexto, así que el código cuántico sigue siendo un reto.
+
+\paper{16.}
+
+\parte{Problema}
+Los desarrolladores de software cuántico hacen muchísimas preguntas en foros, y es difícil saber de qué tratan los problemas más comunes para mejorar documentación y herramientas.
+
+\parte{Solución}
+Clasificar las preguntas de forma automática con modelos preentrenados (BERT y DistilBERT), y explicar sus decisiones con SHAP.
+
+\parte{Metodología}
+Reunieron 2.829 preguntas de Stack Overflow y de tres Stack Exchange. Las etiquetaron entre personas y ChatGPT, y los 282 casos donde no coincidían se resolvieron conversando hasta llegar a un acuerdo. Armaron seis categorías: errores (28,8\%), conceptos (21,6\%), herramientas (21,1\%), teoría (14,7\%), uso de APIs (8\%) y aprendizaje (5,9\%). Compararon BERT y DistilBERT con CNN y MLP.
+
+\parte{Resultados}
+BERT y DistilBERT llegaron a un 95\% de precisión con los datos reales, sin necesitar datos inventados. La CNN llegó a 86\% con datos aumentados y a 51\% sin ellos, y la MLP a 67\% y 54\%. SHAP mostró las palabras que más pesan en cada categoría (por ejemplo, ``error'' empuja hacia la categoría de errores). Esto sirve para que las empresas organicen mejor el conocimiento y mejoren su documentación.
+
+\vspace{1.5em}
+\hrule
+\vspace{1em}
+
+{\large\textbf{Resumen de los tests realizados}}
+
+\vspace{0.5em}
+Por ahora trabajamos con dos bugs de Bugs4Q-Framework, ambos de Qiskit. Para cada uno hay una versión con el error (\textit{buggy}), otra corregida (\textit{fixed}) y un test para cada una. Lo esperado es que el test falle en la versión con error y pase en la corregida. Cada test se ejecutó 3 veces en cada versión, en entornos con versiones antiguas de Qiskit para poder reproducir el error. En los dos bugs el cambio está en el programa del usuario y no en la librería.
+
+\paper{Bug Bugs4Q-FW-5: crear un circuito desde texto QASM}
+
+\parte{Qué pasa}
+El programa debería mostrar el circuito completo (con su registro cuántico, su registro clásico y la medición), pero muestra solo la cabecera y queda vacío. No lanza ningún error, así que solo se nota al comparar con lo esperado. La categoría en el benchmark es ``Output Wrong''.
+
+\parte{Por qué pasa}
+El método \texttt{from\_qasm\_str()} no modifica el circuito que ya existe, sino que construye uno nuevo y lo devuelve. En el código con error, el usuario crea un circuito vacío, llama al método, y el circuito nuevo que se devuelve se pierde sin usarse. Al final se imprime el circuito vacío del principio.
+
+\parte{Cómo se arregla}
+Se cambia a usar directamente lo que devuelve el método:
+\begin{itemize}
+  \item Con error: \texttt{qc = QuantumCircuit()} y luego \texttt{qc.from\_qasm\_str(qasm)}.
+  \item Corregido: \texttt{qc = QuantumCircuit.from\_qasm\_str(qasm)}.
+\end{itemize}
+
+\parte{Entorno}
+Python 3.7.16 y qiskit-terra 0.7.0. Hubo que fijar \texttt{networkx} en la versión 2.3, porque con versiones más nuevas los dos tests fallan por otro error que no tiene que ver con el bug. Tampoco apareció el error de esquema que menciona el issue original, pero sí el circuito vacío.
+
+\parte{Resultados}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Versión & Esperado & Observado (3 ejecuciones) \\
+\midrule
+Con error (\texttt{test\_b5.py}) & Falla & Falló las 3 veces (salida 1) \\
+Corregida (\texttt{test\_f5.py}) & Pasa & Pasó las 3 veces (salida 0) \\
+\bottomrule
+\end{tabular}
+\end{center}
+En la versión con error el test mostró que faltaban las líneas del registro cuántico, el registro clásico y la medición. En la corregida la salida fue idéntica a la esperada.
+
+\parte{Limitaciones}
+Es un error de uso incorrecto de la función y no un defecto de Qiskit. Como es muy simple, el mensaje del test seguramente le da la respuesta casi directa al modelo, por lo que puede que las configuraciones con más información (C2 y C3) no se noten mucho mejor que la básica (C1). Quedan pendientes el análisis estático con LintQ y la revisión de la licencia.
+
+\paper{Bug Bugs4Q-FW-9: pulso con fase parametrizada}
+
+\parte{Qué pasa}
+Dentro de \texttt{pulse.build(...)}, el programa quiere agregar un cambio de fase con un parámetro, pero la lista de instrucciones del programa queda vacía (\texttt{()}) en lugar de traer el \texttt{ShiftPhase} esperado sobre el canal \texttt{DriveChannel(0)}. Tampoco hay error, solo se ve al comparar. La categoría es ``Wrong Command''.
+
+\parte{Por qué pasa}
+Según el issue, no es un defecto de Qiskit sino mal uso. El usuario escribió \texttt{pulse.ShiftPhase(...)}, que es la clase (con mayúscula), cuando dentro del \texttt{build} hay que usar la función en minúsculas. La clase solo crea el objeto y no lo agrega al programa.
+
+\parte{Cómo se arregla}
+Cambiar \texttt{pulse.ShiftPhase(phase, pulse.drive\_channel(0))} por \texttt{pulse.shift\_phase(phase, pulse.drive\_channel(0))}.
+
+\parte{Entorno}
+Python 3.8.20 y qiskit-terra 0.16.1. El issue no dice qué versiones usó, así que elegimos esa por la fecha del issue (octubre de 2020) y porque con ella se cumple que el test falla con el error y pasa corregido. Es una decisión nuestra, no un dato del issue.
+
+\parte{Resultados}
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Versión & Esperado & Observado (3 ejecuciones) \\
+\midrule
+Con error (\texttt{test\_b9.py}) & Falla & Falló las 3 veces (salida 1) \\
+Corregida (\texttt{test\_f9.py}) & Pasa & Pasó las 3 veces (salida 0) \\
+\bottomrule
+\end{tabular}
+\end{center}
+En la versión con error el test recibió \texttt{()} cuando esperaba \texttt{((0, ShiftPhase(phase, DriveChannel(0))),)}. En la corregida coincidieron.
+
+\parte{Limitaciones}
+Es mal uso de la API, y el issue se cerró casi enseguida. El código usa partes de Qiskit que desaparecieron en versiones nuevas, por lo que solo se puede reproducir con versiones viejas. El mensaje del test no dice dónde está el error, así que en la configuración básica (C1) el modelo dependerá de lo que sepa de la API. Quedan pendientes el análisis estático con LintQ y la revisión de la licencia.
+
+\paper{Conclusión general de los tests}
+Los dos bugs se comportaron como esperábamos: el test falla con el error y pasa con la corrección, las 3 veces en cada caso (12 ejecuciones en total, todas con el resultado esperado). Los dos son errores de uso de la API que no lanzan ninguna excepción, y eso los hace parecidos a las ``fallas silenciosas'' que describen varios de los papers. La contra es que ambos son simples y dependen de versiones antiguas de Qiskit, justo el problema de versiones que plantea el primer paper.
+
+\end{document}

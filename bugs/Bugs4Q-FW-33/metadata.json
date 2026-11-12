@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-33",
+  "source_url": "https://quantumcomputing.stackexchange.com/questions/4260/how-to-create-a-condition-on-only-one-classical-bit-when-we-have-a-total-of-2-cl",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/33/buggy_33.py",
+  "fixed_ref": "qiskit/33/fixed_33.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.18.3",
+  "test_command": "python -W ignore test_b33.py (buggy, esperado exit 1); python -W ignore test_f33.py (fixed, esperado exit 0)",
+  "environment_notes": "conda osx-64 (Rosetta) Python 3.8.20. El benchmark no indica versiones; se eligió Terra 0.18.3 y el test fue escrito para este proyecto (el framework no incluye test para este bug). Dependencias completas en logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}
