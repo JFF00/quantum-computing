@@ -1,1 +1,8 @@
 bug_id,selection_reason,environment_file,baseline_test_log,static_analysis_log,status
+Bugs4Q-FW-4,Existe fixed; el cambio esta en el programa del usuario; el test falla en buggy y pasa en fixed (3/3); entorno fijado y documentado,envs/bug4/requirements.txt,bugs/Bugs4Q-FW-4/logs/buggy_test_run1.log,,selected
+Bugs4Q-FW-6,Existe fixed; el cambio esta en el programa del usuario; el test falla en buggy y pasa en fixed (3/3); entorno fijado y documentado,envs/bug6/requirements.txt,bugs/Bugs4Q-FW-6/logs/buggy_test_run1.log,,selected
+Bugs4Q-FW-9,Existe fixed; el cambio esta en el programa del usuario; el test falla en buggy y pasa en fixed (3/3); entorno fijado y documentado,envs/bug9/requirements.txt,bugs/Bugs4Q-FW-9/logs/buggy_test_run1.log,,selected
+Bugs4Q-FW-21,Existe fixed; el cambio esta en el programa del usuario; el test falla en buggy y pasa en fixed (3/3); entorno fijado y documentado,envs/bug21/requirements.txt,bugs/Bugs4Q-FW-21/logs/buggy_test_run1.log,,selected
+Bugs4Q-FW-33,Existe fixed; el cambio esta en el programa del usuario; el test falla en buggy y pasa en fixed (3/3); entorno fijado y documentado,envs/bug33/requirements.txt,bugs/Bugs4Q-FW-33/logs/buggy_test_run1.log,,selected
+Bugs4Q-FW-34,Existe fixed; el cambio esta en el programa del usuario; el test falla en buggy y pasa en fixed (3/3); entorno fijado y documentado,envs/bug34/requirements.txt,bugs/Bugs4Q-FW-34/logs/buggy_test_run1.log,,selected
+Bugs4Q-FW-41,Existe fixed; el cambio esta en el programa del usuario; el test falla en buggy y pasa en fixed (3/3); entorno fijado y documentado,envs/bug41/requirements.txt,bugs/Bugs4Q-FW-41/logs/buggy_test_run1.log,,selected

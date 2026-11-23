@@ -15,6 +15,19 @@
 \newcommand{\paper}[1]{\vspace{1.2em}\par{\large\textbf{#1}}\par\vspace{0.2em}\hrule\vspace{0.4em}}
 \newcommand{\parte}[1]{\par\textbf{#1.}\ }
 
+% Tabla de resultados de un bug (argumento: numero del bug)
+\newcommand{\resultados}[1]{%
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Versión & Esperado & Observado (3 ejecuciones) \\
+\midrule
+Con error (\texttt{test\_b#1.py}) & Falla & Falló las 3 veces (salida 1) \\
+Corregida (\texttt{test\_f#1.py}) & Pasa & Pasó las 3 veces (salida 0) \\
+\bottomrule
+\end{tabular}
+\end{center}}
+
 \title{Resumen de papers y de los tests realizados}
 \author{}
 \date{}
@@ -253,41 +266,90 @@ BERT y DistilBERT llegaron a un 95\% de precisión con los datos reales, sin nec
 {\large\textbf{Resumen de los tests realizados}}
 
 \vspace{0.5em}
-Por ahora trabajamos con dos bugs de Bugs4Q-Framework, ambos de Qiskit. Para cada uno hay una versión con el error (\textit{buggy}), otra corregida (\textit{fixed}) y un test para cada una. Lo esperado es que el test falle en la versión con error y pase en la corregida. Cada test se ejecutó 3 veces en cada versión, en entornos con versiones antiguas de Qiskit para poder reproducir el error. En los dos bugs el cambio está en el programa del usuario y no en la librería.
+Por ahora trabajamos con 7 bugs de Bugs4Q-Framework, todos de Qiskit: FW-4, FW-6, FW-9, FW-21, FW-33, FW-34 y FW-41. Antes probamos 10, pero dejamos fuera 3 que eran demasiado simples (ver más abajo). Para cada uno hay una versión con el error (\textit{buggy}), otra corregida (\textit{fixed}) y un test para cada una. Lo esperado es que el test falle en la versión con error y pase en la corregida. Cada test se ejecutó 3 veces en cada versión, en entornos con versiones antiguas de Qiskit para poder reproducir el error. En los 7 bugs el cambio está en el programa del usuario y no en la librería.
 
-\paper{Bug Bugs4Q-FW-5: crear un circuito desde texto QASM}
+\paper{Bugs seleccionados y por qué}
 
-\parte{Qué pasa}
-El programa debería mostrar el circuito completo (con su registro cuántico, su registro clásico y la medición), pero muestra solo la cabecera y queda vacío. No lanza ningún error, así que solo se nota al comparar con lo esperado. La categoría en el benchmark es ``Output Wrong''.
-
-\parte{Por qué pasa}
-El método \texttt{from\_qasm\_str()} no modifica el circuito que ya existe, sino que construye uno nuevo y lo devuelve. En el código con error, el usuario crea un circuito vacío, llama al método, y el circuito nuevo que se devuelve se pierde sin usarse. Al final se imprime el circuito vacío del principio.
-
-\parte{Cómo se arregla}
-Se cambia a usar directamente lo que devuelve el método:
+\parte{Qué pedimos para elegir un bug}
+Elegimos un bug solo si cumplía las cinco cosas siguientes:
 \begin{itemize}
-  \item Con error: \texttt{qc = QuantumCircuit()} y luego \texttt{qc.from\_qasm\_str(qasm)}.
-  \item Corregido: \texttt{qc = QuantumCircuit.from\_qasm\_str(qasm)}.
+  \item Tiene una versión corregida de referencia.
+  \item El error está en el código del usuario y no en Qiskit.
+  \item El test falla con el error y pasa con la corrección, las 3 veces.
+  \item Lo podemos correr en un entorno aislado con las versiones de Python y Qiskit anotadas.
+  \item No es demasiado simple: el mensaje del test no debe darle la respuesta directa al modelo, porque entonces las configuraciones con más información (C2 y C3) no tendrían margen para mejorar sobre la básica (C1).
 \end{itemize}
+Bugs4Q no dice qué versión de Qiskit usar, y no trae test para los bugs 4, 6, 21, 33, 34 y 41. Esos tests los escribimos nosotros. Para cada bug fuimos probando versiones de Qiskit hasta encontrar una donde se cumple lo de arriba. Esa elección es nuestra y no viene del benchmark.
 
-\parte{Entorno}
-Python 3.7.16 y qiskit-terra 0.7.0. Hubo que fijar \texttt{networkx} en la versión 2.3, porque con versiones más nuevas los dos tests fallan por otro error que no tiene que ver con el bug. Tampoco apareció el error de esquema que menciona el issue original, pero sí el circuito vacío.
-
-\parte{Resultados}
+\parte{Cuáles quedaron}
+Quedaron 7 bugs. Tres vienen de issues de GitHub, uno de Stack Overflow y tres de Stack Exchange. Cubren cinco categorías distintas del Framework. Los bugs 4 y 6 salen del mismo issue (qiskit\#1337).
 \begin{center}
-\begin{tabular}{lll}
+\small
+\begin{tabular}{llp{4.6cm}l}
 \toprule
-Versión & Esperado & Observado (3 ejecuciones) \\
+Bug & Categoría & Fuente & Qiskit usado \\
 \midrule
-Con error (\texttt{test\_b5.py}) & Falla & Falló las 3 veces (salida 1) \\
-Corregida (\texttt{test\_f5.py}) & Pasa & Pasó las 3 veces (salida 0) \\
+FW-4 & Simulation Failed & GitHub qiskit\#1337 & terra 0.20.2, aer 0.10.4 \\
+FW-6 & Throw Exceptions & GitHub qiskit\#1337 & terra 0.20.2, aer 0.10.4 \\
+FW-9 & Wrong Command & GitHub qiskit-terra\#5249 & terra 0.16.1 \\
+FW-21 & Output Wrong & Stack Overflow 60918011 & terra 0.18.3 \\
+FW-33 & Throw Exceptions & Stack Exchange 4260 & terra 0.18.3 \\
+FW-34 & Output Wrong & Stack Exchange 15925 & terra 0.18.3 \\
+FW-41 & Simulation Failed & Stack Exchange 24155 & terra 0.18.3, aer 0.9.1 \\
 \bottomrule
 \end{tabular}
 \end{center}
-En la versión con error el test mostró que faltaban las líneas del registro cuántico, el registro clásico y la medición. En la corregida la salida fue idéntica a la esperada.
+
+\parte{Cuáles descartamos}
+Probamos otros tres bugs que se reprodujeron bien (el test falló 3 de 3 con el error y pasó 3 de 3 con la corrección), pero los sacamos por ser demasiado simples:
+\begin{itemize}
+  \item \textbf{FW-5} (crear un circuito desde texto QASM, Qiskit 0.7.0): el error es no usar el circuito que devuelve una función, y el mensaje del test casi da la respuesta.
+  \item \textbf{FW-22} (dibujar \texttt{ZZFeatureMap}, Qiskit 0.18.3): hay que llamar a \texttt{decompose()} antes de dibujar. El efecto es solo visual y el test es una aproximación sobre el dibujo en texto.
+  \item \textbf{FW-23} (imprimir la figura en vez de mostrarla, Qiskit 0.18.3): hay que cambiar \texttt{print} por \texttt{.show()}. El efecto es solo visual y el test solo comprueba que no salga el texto de la figura.
+\end{itemize}
+Sus archivos y registros quedan guardados en el proyecto, pero no entran al estudio.
+
+\paper{Bug Bugs4Q-FW-4: simular un sumador sin transpilar}
+
+\parte{Qué pasa}
+Un sumador (\texttt{CDKMRippleCarryAdder}) no se puede simular: el simulador devuelve un error que dice que el circuito tiene instrucciones inválidas. El programa no se cae, solo el resultado viene con error. La categoría es ``Simulation Failed''.
+
+\parte{Por qué pasa}
+El sumador es una puerta compuesta que el simulador no entiende. \texttt{backend.run} no la descompone antes de ejecutar (\texttt{execute} sí lo hace).
+
+\parte{Cómo se arregla}
+Pasar el circuito por \texttt{transpile} antes de llamar a \texttt{backend.run}.
+
+\parte{Entorno}
+Python 3.8.20, qiskit-terra 0.20.2 y qiskit-aer 0.10.4. El Framework no dice qué versiones usar, así que usamos las que cumplen lo que pedimos.
+
+\parte{Resultados}
+\resultados{4}
+Los dos tests revisan que la simulación termine bien (\texttt{COMPLETED}). Lo único que cambia es si se transpila o no.
 
 \parte{Limitaciones}
-Es un error de uso incorrecto de la función y no un defecto de Qiskit. Como es muy simple, el mensaje del test seguramente le da la respuesta casi directa al modelo, por lo que puede que las configuraciones con más información (C2 y C3) no se noten mucho mejor que la básica (C1). Quedan pendientes el análisis estático con LintQ y la revisión de la licencia.
+Es mal uso de la función (falta \texttt{transpile}). En los tests importamos el sumador de forma explícita, porque con Terra 0.20 la ruta del código original no funciona. El test lo escribimos nosotros.
+
+\paper{Bug Bugs4Q-FW-6: simular 36 qubits sin memoria suficiente}
+
+\parte{Qué pasa}
+Un circuito de 36 qubits no se puede simular: sale un error de memoria porque pide 1.048.576 MB y la máquina permite 8.192 MB. La categoría es ``Throw Exceptions''.
+
+\parte{Por qué pasa}
+El simulador por defecto guarda un número por cada estado posible ($2^{36}$, cerca de 1 TB). Pero este circuito casi no tiene entrelazamiento y se puede simular de otra forma, que gasta mucho menos.
+
+\parte{Cómo se arregla}
+Usar \texttt{AerSimulator(method='matrix\_product\_state')} en lugar de \texttt{Aer.get\_backend('qasm\_simulator')}. Aer avisa de la falta de memoria antes de reservarla, así que el test falla sin gastar recursos de la máquina.
+
+\parte{Entorno}
+Python 3.8.20, qiskit-terra 0.20.2 y qiskit-aer 0.10.4. Las elegimos porque con ellas se cumple lo que pedimos.
+
+\parte{Resultados}
+\resultados{6}
+Los dos tests revisan que la simulación termine bien (\texttt{COMPLETED}). Lo único que cambia es el método del simulador.
+
+\parte{Limitaciones}
+Es más un límite de memoria que un error de uso, y depende de la memoria configurada (8.192 MB en esta máquina). El test lo escribimos nosotros.
 
 \paper{Bug Bugs4Q-FW-9: pulso con fase parametrizada}
 
@@ -319,7 +381,108 @@ En la versión con error el test recibió \texttt{()} cuando esperaba \texttt{((
 \parte{Limitaciones}
 Es mal uso de la API, y el issue se cerró casi enseguida. El código usa partes de Qiskit que desaparecieron en versiones nuevas, por lo que solo se puede reproducir con versiones viejas. El mensaje del test no dice dónde está el error, así que en la configuración básica (C1) el modelo dependerá de lo que sepa de la API. Quedan pendientes el análisis estático con LintQ y la revisión de la licencia.
 
+\paper{Bug Bugs4Q-FW-21: teleportación que nunca mide el qubit}
+
+\parte{Qué pasa}
+En el programa de teleportación se prepara un 1 en el qubit 0, pero al final el qubit teleportado siempre sale 0 (el test falla con \texttt{'0' != '1'}). No hay ningún error. La categoría es ``Output Wrong''.
+
+\parte{Por qué pasa}
+La medición del qubit 2 se agrega después de ejecutar, así que ese qubit nunca se mide y su bit queda en 0. Además, las correcciones no dependen de los resultados medidos.
+
+\parte{Cómo se arregla}
+La versión corregida es una reescritura completa: es el ejemplo oficial de teleportación de Qiskit, que mide el qubit 2 antes de ejecutar y aplica las correcciones según lo medido.
+
+\parte{Entorno}
+Python 3.8.20 y qiskit-terra 0.18.3. Los tests usan \texttt{BasicAer} en lugar de \texttt{Aer}. El test de la versión corregida prepara \texttt{X} en lugar de \texttt{u(0.3, 0.2, 0.1)}, para que el resultado sea siempre el mismo (teleportar un 1 debe dar 1).
+
+\parte{Resultados}
+\resultados{21}
+Los dos tests ejecutan una vez y revisan que el bit del qubit 2 sea 1.
+
+\parte{Limitaciones}
+La corrección es una reescritura completa y no un cambio pequeño. El test de la versión corregida es un poco distinto del ejemplo original. El test lo escribimos nosotros.
+
+\paper{Bug Bugs4Q-FW-33: condición sobre un solo bit clásico}
+
+\parte{Qué pasa}
+El usuario quiere que una puerta dependa de un solo bit de un registro clásico de 2 bits (\texttt{c\_if} sobre \texttt{c[0]}). El código original ni se puede ejecutar (tiene un error de sintaxis), así que el test usa la forma válida \texttt{c\_if(c[0], 0)}. El fallo aparece al dibujar el circuito, con un \texttt{KeyError}. La categoría es ``Throw Exceptions''.
+
+\parte{Por qué pasa}
+\texttt{c\_if} solo acepta un registro clásico completo, no un bit suelto de un registro más grande.
+
+\parte{Cómo se arregla}
+Usar dos registros de 1 bit en lugar de uno de 2 bits, y poner la condición sobre uno de ellos.
+
+\parte{Entorno}
+Python 3.8.20 y qiskit-terra 0.18.3.
+
+\parte{Resultados}
+\resultados{33}
+Los dos tests arman el circuito, lo dibujan y revisan que la puerta \texttt{x} tenga la condición igual a 0. En la versión con error, el dibujo lanza el \texttt{KeyError}.
+
+\parte{Limitaciones}
+Depende de la versión: en Terra 0.18.3 \texttt{c\_if} acepta el bit, pero falla al dibujar. El código original tiene un error de sintaxis y el test lo corrige un poco para poder ejecutarlo. El test lo escribimos nosotros.
+
+\paper{Bug Bugs4Q-FW-34: estado de Bell con la etiqueta al revés}
+
+\parte{Qué pasa}
+Se parte del estado \texttt{'01'}, se aplica \texttt{H} en el qubit 0 y \texttt{CX(0,1)}, y no sale el estado de Bell esperado $(|01\rangle + |10\rangle)/\sqrt{2}$, sino $(|00\rangle - |11\rangle)/\sqrt{2}$. No hay ningún error. La categoría es ``Output Wrong''.
+
+\parte{Por qué pasa}
+Qiskit lee las etiquetas de derecha a izquierda: en \texttt{'01'}, el qubit 0 es el de la derecha. El usuario las leyó al revés y partió de otro estado.
+
+\parte{Cómo se arregla}
+Cambiar \texttt{'01'} por \texttt{'10'}.
+
+\parte{Entorno}
+Python 3.8.20 y qiskit-terra 0.18.3.
+
+\parte{Resultados}
+\resultados{34}
+Los dos tests comparan el estado final. Con el error salió $[0.707, 0, 0, -0.707]$ y con la corrección $[0, 0.707, 0.707, 0]$.
+
+\parte{Limitaciones}
+No es un defecto de Qiskit, sino una convención que el usuario entendió al revés. El test no revisa el dibujo de la esfera (\texttt{plot\_state\_qsphere}), que era lo que usaba el usuario. El test lo escribimos nosotros.
+
+\paper{Bug Bugs4Q-FW-41: estado inicial dado como texto}
+
+\parte{Qué pasa}
+Si se inicia el circuito con el texto \texttt{'10'} y se pide el vector de estado, sale un error (\texttt{You have to select a circuit or schedule when there is more than one available}). La categoría es ``Simulation Failed''.
+
+\parte{Por qué pasa}
+\texttt{initialize} no entiende \texttt{'10'} como el estado $|10\rangle$. El estado inicial hay que darlo como una lista de amplitudes.
+
+\parte{Cómo se arregla}
+Cambiar \texttt{initial\_state='10'} por \texttt{initial\_state=[0, 0, 1, 0]}.
+
+\parte{Entorno}
+Python 3.8.20, qiskit-terra 0.18.3 y qiskit-aer 0.9.1.
+
+\parte{Resultados}
+\resultados{41}
+Los dos tests arman un circuito con \texttt{initialize}, lo simulan y comparan el vector con \texttt{[0, 0, 1, 0]}. Lo único que cambia es el argumento de \texttt{initialize}.
+
+\parte{Limitaciones}
+El test usa una versión reducida del programa original (solo \texttt{initialize}, sin las partes XX, YY y ZZ ni \texttt{measure\_all}). El fallo aparece al pedir el resultado y no al ejecutar. El test lo escribimos nosotros.
+
 \paper{Conclusión general de los tests}
-Los dos bugs se comportaron como esperábamos: el test falla con el error y pasa con la corrección, las 3 veces en cada caso (12 ejecuciones en total, todas con el resultado esperado). Los dos son errores de uso de la API que no lanzan ninguna excepción, y eso los hace parecidos a las ``fallas silenciosas'' que describen varios de los papers. La contra es que ambos son simples y dependen de versiones antiguas de Qiskit, justo el problema de versiones que plantea el primer paper.
+Los 7 bugs seleccionados se comportaron como esperábamos: el test falla con el error y pasa con la corrección, las 3 veces en cada caso (42 ejecuciones en total, todas con el resultado esperado). Los 3 bugs descartados también se comportaron así.
+\begin{center}
+\small
+\begin{tabular}{llll}
+\toprule
+Bug & Con error & Corregido & Qué cambia la corrección \\
+\midrule
+FW-4 & Falla 3/3 & Pasa 3/3 & Transpilar antes de \texttt{run} \\
+FW-6 & Falla 3/3 & Pasa 3/3 & Método \texttt{matrix\_product\_state} \\
+FW-9 & Falla 3/3 & Pasa 3/3 & \texttt{shift\_phase} en lugar de \texttt{ShiftPhase} \\
+FW-21 & Falla 3/3 & Pasa 3/3 & Medir el qubit 2 antes de ejecutar \\
+FW-33 & Falla 3/3 & Pasa 3/3 & Registros clásicos de 1 bit \\
+FW-34 & Falla 3/3 & Pasa 3/3 & Etiqueta \texttt{'10'} en lugar de \texttt{'01'} \\
+FW-41 & Falla 3/3 & Pasa 3/3 & Estado inicial como vector \\
+\bottomrule
+\end{tabular}
+\end{center}
+Todos son errores de uso de Qiskit. FW-9, FW-21 y FW-34 corren sin avisar y dan un resultado equivocado, como las ``fallas silenciosas'' de los papers. FW-4 y FW-6 no se caen, pero el resultado de la simulación trae un error. Solo FW-33 y FW-41 terminan con una excepción. La contra es que todos son relativamente simples y dependen de versiones antiguas de Qiskit (de la 0.16.1 a la 0.20.2), justo el problema de versiones que plantea el primer paper. Además, en 6 de los 7 bugs el test lo escribimos nosotros, porque el Framework no trae uno.
 
 \end{document}

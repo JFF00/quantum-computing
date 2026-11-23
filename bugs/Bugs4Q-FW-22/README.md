@@ -95,4 +95,4 @@ Limitaciones:
 
 - [ ] Análisis estático (LintQ) sin ejecutar: `static_warnings` en blanco en el inventario.
 - [ ] Revisión de licencia (`license_review` = `PENDIENTE` en `metadata.json`).
-- [ ] Decidir `selected` en `data/bugs_inventory.xlsx` y, si procede, añadir a `data/selected_bugs.csv`.
+- [x] Excluido del estudio (`selected` = No en `data/bugs_inventory.xlsx`, fuera de `data/selected_bugs.csv`): bug muy simple y de efecto visual: el test es solo un proxy sobre el dibujo en texto, sin margen para C2/C3 sobre C1. Se conserva la evidencia de la reproducción.

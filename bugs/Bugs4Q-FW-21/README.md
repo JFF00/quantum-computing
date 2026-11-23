@@ -89,4 +89,4 @@ Limitaciones:
 
 - [ ] Análisis estático (LintQ) sin ejecutar: `static_warnings` en blanco en el inventario.
 - [ ] Revisión de licencia (`license_review` = `PENDIENTE` en `metadata.json`).
-- [ ] Decidir `selected` en `data/bugs_inventory.xlsx` y, si procede, añadir a `data/selected_bugs.csv`.
+- [x] Selección decidida: `selected` = Sí en `data/bugs_inventory.xlsx` y añadido a `data/selected_bugs.csv`.
