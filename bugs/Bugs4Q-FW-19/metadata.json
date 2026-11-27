@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-19",
+  "source_url": "https://github.com/Qiskit/qiskit-metapackage/issues/1003",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/19/buggy_19.py",
+  "fixed_ref": "qiskit/19/fixed_19.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.14.2",
+  "test_command": "python -W ignore test_b19.py (buggy, esperado exit 1); python -W ignore test_f19.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug19/.venv). numpy fijado a 1.19.5; matplotlib 3.6.3 instalada para qc.draw('mpl'). Versión de Terra del issue (0.14.2), que reporta Python 3.7.8. Terra 0.12.0 no tiene qiskit.extensions.CXGate; Terra 0.16.4 exige pylatexenc. El Framework enlaza Qiskit/qiskit/issues/1003 (repo hoy renombrado qiskit-metapackage). Tests del Framework adaptados: oráculo invertido (falla si se lanza una excepción), porque el test_f original exige la excepción también en fixed. Dependencias completas en envs/bug19/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

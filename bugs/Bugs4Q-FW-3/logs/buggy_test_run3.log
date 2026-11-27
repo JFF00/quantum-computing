@@ -1,0 +1,74 @@
+# bug: Bugs4Q-FW-3
+# version: buggy
+# run: 3
+# command: python -W ignore test_b3.py   (cwd: bugs/Bugs4Q-FW-3)
+# interpreter: envs/bug3/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T23:00:05
+# duration_s: 5.25
+# exit_code: 1
+----- stdout -----
+There are 9 circuits to run
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit\circuit\equivalence.py:18: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit\version.py:20: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit_experiments\database_service\db_analysis_result.py:22: DeprecationWarning: The package qiskit.providers.ibmq is being deprecated. Please see https://ibm.biz/provider_migration_guide to get instructions on how to migrate to qiskit-ibm-provider (https://github.com/Qiskit/qiskit-ibm-provider) and qiskit-ibm-runtime (https://github.com/Qiskit/qiskit-ibm-runtime).
+  from .utils import save_data, qiskit_version
+Post processing function failed:
+Traceback (most recent call last):
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit_experiments\database_service\db_experiment_data.py", line 299, in _wait_for_job
+    job_done_callback(self, **kwargs)
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit_experiments\framework\base_experiment.py", line 192, in run_analysis
+    analysis.run(experiment_data, **analysis_options)
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit_experiments\framework\base_analysis.py", line 89, in run
+    results, figures = self._run_analysis(experiment_data, **analysis_options)
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit_experiments\library\tomography\tomography_analysis.py", line 93, in _run_analysis
+    state, fitter_metadata = fitter(
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit_experiments\library\tomography\fitters\lininv.py", line 96, in linear_inversion
+    prep_dual_basis = dual_preparation_basis(preparation_basis)
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit_experiments\library\tomography\fitters\lininv.py", line 126, in dual_preparation_basis
+    return FitterPreparationBasis(fitter_utils.dual_states(basis._mats), name=f"Dual_{basis.name}")
+AttributeError: 'PauliMeasurementBasis' object has no attribute '_mats'
+
+F
+======================================================================
+FAIL: test_b3 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_b3.py", line 51, in test_b3
+    self.assertEqual(experiment.status(), 'DONE', experiment.errors())
+AssertionError: 'ERROR' != 'DONE'
+- ERROR
++ DONE
+ : Post processing for job 234b8aa6-0129-48d2-b772-ac4733e16b55 failed: 
+Traceback (most recent call last):
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit_experiments\database_service\db_experiment_data.py", line 816, in block_for_results
+    fut.result(timeout)
+  File "C:\Users\jotad\AppData\Roaming\uv\python\cpython-3.8-windows-x86_64-none\lib\concurrent\futures\_base.py", line 444, in result
+    return self.__get_result()
+  File "C:\Users\jotad\AppData\Roaming\uv\python\cpython-3.8-windows-x86_64-none\lib\concurrent\futures\_base.py", line 389, in __get_result
+    raise self._exception
+  File "C:\Users\jotad\AppData\Roaming\uv\python\cpython-3.8-windows-x86_64-none\lib\concurrent\futures\thread.py", line 57, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit_experiments\database_service\db_experiment_data.py", line 299, in _wait_for_job
+    job_done_callback(self, **kwargs)
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit_experiments\framework\base_experiment.py", line 192, in run_analysis
+    analysis.run(experiment_data, **analysis_options)
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit_experiments\framework\base_analysis.py", line 89, in run
+    results, figures = self._run_analysis(experiment_data, **analysis_options)
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit_experiments\library\tomography\tomography_analysis.py", line 93, in _run_analysis
+    state, fitter_metadata = fitter(
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit_experiments\library\tomography\fitters\lininv.py", line 96, in linear_inversion
+    prep_dual_basis = dual_preparation_basis(preparation_basis)
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit_experiments\library\tomography\fitters\lininv.py", line 126, in dual_preparation_basis
+    return FitterPreparationBasis(fitter_utils.dual_states(basis._mats), name=f"Dual_{basis.name}")
+AttributeError: 'PauliMeasurementBasis' object has no attribute '_mats'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 3.079s
+
+FAILED (failures=1)
+

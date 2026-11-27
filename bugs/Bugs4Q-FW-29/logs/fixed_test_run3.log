@@ -1,0 +1,20 @@
+# bug: Bugs4Q-FW-29
+# version: fixed
+# run: 3
+# command: python -W ignore test_f29.py   (cwd: bugs/Bugs4Q-FW-29)
+# interpreter: envs/bug29/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T22:35:49
+# duration_s: 0.84
+# exit_code: 0
+----- stdout -----
+{'011': 815, '101': 37, '111': 91, '000': 22, '100': 11, '001': 11, '010': 6, '110': 7}
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug29\.venv\lib\site-packages\qiskit\version.py:21: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.032s
+
+OK
+

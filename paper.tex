@@ -15,6 +15,19 @@
 \newcommand{\paper}[1]{\vspace{1.2em}\par{\large\textbf{#1}}\par\vspace{0.2em}\hrule\vspace{0.4em}}
 \newcommand{\parte}[1]{\par\textbf{#1.}\ }
 
+% Tabla de resultados de un bug (argumento: numero del bug)
+\newcommand{\resultados}[1]{%
+\begin{center}
+\begin{tabular}{lll}
+\toprule
+Programa & Lo esperado & Lo que pasó \\
+\midrule
+Con error & El test falla & Falló las 3 veces \\
+Arreglado & El test pasa & Pasó las 3 veces \\
+\bottomrule
+\end{tabular}
+\end{center}}
+
 \title{Resumen de papers y de los tests realizados}
 \author{}
 \date{}
@@ -246,6 +259,7 @@ Reunieron 2.829 preguntas de Stack Overflow y de tres Stack Exchange. Las etique
 \parte{Resultados}
 BERT y DistilBERT llegaron a un 95\% de precisión con los datos reales, sin necesitar datos inventados. La CNN llegó a 86\% con datos aumentados y a 51\% sin ellos, y la MLP a 67\% y 54\%. SHAP mostró las palabras que más pesan en cada categoría (por ejemplo, ``error'' empuja hacia la categoría de errores). Esto sirve para que las empresas organicen mejor el conocimiento y mejoren su documentación.
 
+
 \vspace{1.5em}
 \hrule
 \vspace{1em}
@@ -253,73 +267,224 @@ BERT y DistilBERT llegaron a un 95\% de precisión con los datos reales, sin nec
 {\large\textbf{Resumen de los tests realizados}}
 
 \vspace{0.5em}
-Por ahora trabajamos con dos bugs de Bugs4Q-Framework, ambos de Qiskit. Para cada uno hay una versión con el error (\textit{buggy}), otra corregida (\textit{fixed}) y un test para cada una. Lo esperado es que el test falle en la versión con error y pase en la corregida. Cada test se ejecutó 3 veces en cada versión, en entornos con versiones antiguas de Qiskit para poder reproducir el error. En los dos bugs el cambio está en el programa del usuario y no en la librería.
+Bugs4Q-Framework es una colección de 42 programas de Qiskit que tienen un error. De cada uno viene la versión con el error y una versión arreglada. Lo primero fue comprobar que esos errores se pueden reproducir. Para cada bug instalé una versión antigua de Qiskit en un entorno separado y corrí el test 3 veces con el programa con error y 3 veces con el arreglado. Si todo está bien, el test falla con el error y pasa con el arreglo. Esto funcionó en 41 bugs, y en el FW-24 solo funcionó a medias. Los resultados quedaron anotados en \texttt{data/bugs\_inventory.xlsx} y \texttt{data/bugs.csv}.
 
-\paper{Bug Bugs4Q-FW-5: crear un circuito desde texto QASM}
+Después elegí 6 bugs para una prueba piloto: FW-7, FW-8, FW-12, FW-14, FW-21 y FW-29. Al principio eran 5. FW-12 lo agregué después de correr LintQ, porque es el único donde LintQ apunta directo al error (lo explico en la parte de LintQ).
 
-\parte{Qué pasa}
-El programa debería mostrar el circuito completo (con su registro cuántico, su registro clásico y la medición), pero muestra solo la cabecera y queda vacío. No lanza ningún error, así que solo se nota al comparar con lo esperado. La categoría en el benchmark es ``Output Wrong''.
+\paper{Cómo elegí los bugs}
 
-\parte{Por qué pasa}
-El método \texttt{from\_qasm\_str()} no modifica el circuito que ya existe, sino que construye uno nuevo y lo devuelve. En el código con error, el usuario crea un circuito vacío, llama al método, y el circuito nuevo que se devuelve se pierde sin usarse. Al final se imprime el circuito vacío del principio.
-
-\parte{Cómo se arregla}
-Se cambia a usar directamente lo que devuelve el método:
+Para elegir un bug me fijé en que:
 \begin{itemize}
-  \item Con error: \texttt{qc = QuantumCircuit()} y luego \texttt{qc.from\_qasm\_str(qasm)}.
-  \item Corregido: \texttt{qc = QuantumCircuit.from\_qasm\_str(qasm)}.
+  \item tuviera una versión arreglada para comparar;
+  \item el error estuviera en el programa del usuario y no dentro de Qiskit;
+  \item el test fallara las 3 veces con el error y pasara las 3 veces con el arreglo;
+  \item se pudiera correr en mi computador, con versiones de Python y Qiskit conocidas;
+  \item el programa no se cayera, sino que diera un resultado equivocado sin avisar. Estos errores son más difíciles de encontrar, y es donde más podría servir darle pistas al modelo;
+  \item no se arreglara solo cambiando el nombre de una función. Quería errores de distintos tipos.
 \end{itemize}
+Bugs4Q no dice con qué versión de Qiskit hay que correr cada programa. Por eso fui probando versiones, empezando por la más cercana a la fecha en que se reportó el error, hasta encontrar una donde los tests se comportaran como esperaba. Esa elección la hice yo.
 
-\parte{Entorno}
-Python 3.7.16 y qiskit-terra 0.7.0. Hubo que fijar \texttt{networkx} en la versión 2.3, porque con versiones más nuevas los dos tests fallan por otro error que no tiene que ver con el bug. Tampoco apareció el error de esquema que menciona el issue original, pero sí el circuito vacío.
+\parte{Un test propio para cada bug}
+Los tests del Framework tienen el código del programa copiado adentro. Eso no me sirve, porque lo que necesito probar es el arreglo que proponga el modelo, y ese arreglo va a estar en otro archivo. Por eso escribí un test nuevo para cada bug (\texttt{test\_program\_N.py}) que corre el archivo que le indique y revisa si el resultado está bien. Este test no trae la solución adentro, para no dársela al modelo cuando se lo muestre. Es el que voy a usar para revisar los arreglos.
 
-\parte{Resultados}
+\parte{Los seis bugs}
+En los seis el programa corre sin mostrar errores pero da un resultado equivocado. Cuatro vienen de reportes en GitHub y dos de preguntas en foros (Stack Overflow y Stack Exchange). Todos los corrí en Windows con Python 3.8.
 \begin{center}
-\begin{tabular}{lll}
+\small
+\begin{tabular}{llp{6.2cm}l}
 \toprule
-Versión & Esperado & Observado (3 ejecuciones) \\
+Bug & De dónde sale & Qué está mal & Qiskit \\
 \midrule
-Con error (\texttt{test\_b5.py}) & Falla & Falló las 3 veces (salida 1) \\
-Corregida (\texttt{test\_f5.py}) & Pasa & Pasó las 3 veces (salida 0) \\
+FW-7 & GitHub & Al reemplazar una parte del circuito, los qubits quedan desordenados & 0.14.2 \\
+FW-8 & GitHub & Una puerta usa el qubit equivocado como control & 0.18.0 \\
+FW-12 & GitHub & Los resultados se guardan en bits nuevos en vez de los que ya existían & 0.17.4 \\
+FW-14 & GitHub & Falta un paso para calcular un valor esperado & 0.17.0 \\
+FW-21 & Stack Overflow & Un qubit se mide después de ejecutar el circuito & 0.18.3 \\
+FW-29 & Stack Exchange & Una parte del algoritmo está mal escrita & 0.12.0 \\
 \bottomrule
 \end{tabular}
 \end{center}
-En la versión con error el test mostró que faltaban las líneas del registro cuántico, el registro clásico y la medición. En la corregida la salida fue idéntica a la esperada.
 
-\parte{Limitaciones}
-Es un error de uso incorrecto de la función y no un defecto de Qiskit. Como es muy simple, el mensaje del test seguramente le da la respuesta casi directa al modelo, por lo que puede que las configuraciones con más información (C2 y C3) no se noten mucho mejor que la básica (C1). Quedan pendientes el análisis estático con LintQ y la revisión de la licencia.
-
-\paper{Bug Bugs4Q-FW-9: pulso con fase parametrizada}
+\paper{FW-7: los qubits quedan desordenados}
 
 \parte{Qué pasa}
-Dentro de \texttt{pulse.build(...)}, el programa quiere agregar un cambio de fase con un parámetro, pero la lista de instrucciones del programa queda vacía (\texttt{()}) en lugar de traer el \texttt{ShiftPhase} esperado sobre el canal \texttt{DriveChannel(0)}. Tampoco hay error, solo se ve al comparar. La categoría es ``Wrong Command''.
+Qiskit puede representar un circuito como un diagrama de piezas conectadas, que llama DAG. El programa quiere cambiar una puerta por otra más simple, y para eso reemplaza esa pieza del diagrama por una nueva. El problema es que la puerta nueva queda conectada a los qubits 0, 1 y 3, y en otro orden, cuando debería quedar en los qubits 0, 1 y 2. No aparece ningún error; solo se nota al mirar el circuito.
 
 \parte{Por qué pasa}
-Según el issue, no es un defecto de Qiskit sino mal uso. El usuario escribió \texttt{pulse.ShiftPhase(...)}, que es la clase (con mayúscula), cuando dentro del \texttt{build} hay que usar la función en minúsculas. La clase solo crea el objeto y no lo agrega al programa.
+La pieza nueva se armó usando los qubits del circuito original, y Qiskit además los vuelve a acomodar al hacer el reemplazo. Así, el desorden se aplica dos veces. En GitHub respondieron que no era un error de Qiskit, sino que la función se estaba usando mal.
 
 \parte{Cómo se arregla}
-Cambiar \texttt{pulse.ShiftPhase(phase, pulse.drive\_channel(0))} por \texttt{pulse.shift\_phase(phase, pulse.drive\_channel(0))}.
+Cambiando una línea, para que la pieza nueva use sus propios qubits en orden: \texttt{qr[...]} en vez de \texttt{node.qargs[...]}.
 
-\parte{Entorno}
-Python 3.8.20 y qiskit-terra 0.16.1. El issue no dice qué versiones usó, así que elegimos esa por la fecha del issue (octubre de 2020) y porque con ella se cumple que el test falla con el error y pasa corregido. Es una decisión nuestra, no un dato del issue.
+\parte{Versión usada}
+Qiskit 0.14.2. Probé desde la 0.13 hasta la 0.18. En la 0.13 fallaban los dos tests por un detalle del dibujo (escribe ``Ghz'' con mayúscula). Desde la 0.14.2 funcionó bien, y elegí esa por ser la más cercana a la fecha del reporte.
 
-\parte{Resultados}
+\parte{Resultado}
+\resultados{7}
+Los tests del Framework comparan el dibujo del circuito en texto. Mi test revisa directamente en qué qubits quedó la puerta: con el error salen los qubits 1, 3 y 0, y con el arreglo 1, 0 y 2.
+
+\parte{Problemas}
+Comparar dibujos no es muy confiable, porque cambian de una versión de Qiskit a otra. Además, el test muestra que los qubits están mal, pero no dice qué línea los desordena.
+
+\paper{FW-8: una puerta con el control equivocado}
+
+\parte{Qué pasa}
+El programa arma un circuito pequeño de 3 qubits con dos puertas \texttt{crz}. Estas puertas giran un qubit solo si otro qubit, llamado ``control'', está en 1. Después mete ese circuito dentro de uno de 4 qubits y calcula su matriz. La matriz no es la que esperaba el usuario, pero no aparece ningún error.
+
+\parte{Por qué pasa}
+El usuario pensó que Qiskit calculaba mal la matriz, pero el error estaba en su programa: en las dos puertas puso como control el qubit 2, y al meter el circuito dentro del grande ese qubit no es el que él quería.
+
+\parte{Cómo se arregla}
+Cambiando dos líneas para que el control sea el qubit 0: \texttt{crz(pi/2,0,1)} y \texttt{crz(pi/4,0,2)}, en vez de \texttt{crz(pi/2,2,0)} y \texttt{crz(pi/4,2,1)}.
+
+\parte{Versión usada}
+Qiskit 0.18.0. El reporte usaba la 0.16.1. Probé desde la 0.15 hasta la 0.18. Hasta la 0.17.4 el arreglo ya daba la matriz correcta, pero su test fallaba igual por cómo se escribe un nombre en el dibujo. Por eso usé la 0.18.0.
+
+\parte{Resultado}
+\resultados{8}
+Mi test revisa los valores de la matriz en vez del dibujo. Con el error, 10 de los 16 valores que revisa salen mal.
+
+\parte{Problemas}
+El reporte lo presenta como un error de Qiskit, aunque no lo es. Cuando el test del Framework falla, muestra dos matrices de 16 por 16 cortadas, así que da poca pista de dónde está el problema.
+
+\paper{FW-12: los resultados quedan en bits de más}
+
+\parte{Qué pasa}
+El programa pone 2 qubits en superposición con la puerta H (así cada uno tiene la mitad de probabilidad de dar 0 y la mitad de dar 1) y después los mide. El circuito ya tiene 2 bits para guardar los resultados, pero los resultados salen con 4 bits, por ejemplo \texttt{10 00}: los dos primeros son las mediciones y los otros dos siempre quedan en 0. No aparece ningún error.
+
+\parte{Por qué pasa}
+Para medir se usa \texttt{measure\_all()}, que siempre crea bits nuevos para guardar los resultados, aunque el circuito ya tenga los suyos. En GitHub explicaron que la función funciona así a propósito, así que el error está en cómo se usó.
+
+\parte{Cómo se arregla}
+Cambiando una línea: \texttt{measure(qc.qubits, qc.clbits)} en vez de \texttt{measure\_all()}. Así cada medición se guarda en los bits que ya existían.
+
+\parte{Versión usada}
+Qiskit 0.17.4 con Aer 0.8.2. El reporte no dice qué versión usaba el usuario, así que elegí la última que salió antes del reporte (mayo de 2021). También probé la 0.18.3 y dio lo mismo.
+
+\parte{Resultado}
+\resultados{12}
+Los tests del Framework estaban al revés: revisaban que el resultado tuviera los bits de más, así que pasaban con el error y fallaban con el arreglo. Los cambié para que revisen que los resultados tengan solo 2 bits, que es lo que quería el usuario, y guardé los originales aparte. Mi test revisa que el circuito tenga solo 2 bits para los resultados y que salgan los 4 resultados posibles (\texttt{00}, \texttt{01}, \texttt{10} y \texttt{11}). Con el error, el circuito tiene 4 bits.
+
+\parte{Problemas}
+Los tests los adapté yo. El test muestra que sobran bits, pero no dice que el problema está en \texttt{measure\_all()}. Además, a este bug lo elegí después de ver lo que decía LintQ, no de la misma forma que los otros cinco.
+
+\paper{FW-14: falta un paso al calcular un valor esperado}
+
+\parte{Qué pasa}
+El programa calcula un ``valor esperado'', que es como el promedio de lo que se obtendría al medir muchas veces. Lo calcula de dos formas: con una fórmula exacta y midiendo en un simulador. La fórmula da \texttt{1j} (un número imaginario) y el simulador da casi 0. Tampoco aparece ningún error.
+
+\parte{Por qué pasa}
+Antes de medir en el simulador hay que transformar el cálculo con \texttt{PauliExpectation}, que lo prepara para que cada parte se pueda medir. El programa se salta ese paso, y una de las partes no se mide bien. No sobra nada: falta un paso.
+
+\parte{Cómo se arregla}
+Agregando una línea con esa transformación antes de medir.
+
+\parte{Versión usada}
+Qiskit 0.17.0 con Aer 0.8.0, las mismas versiones del reporte.
+
+\parte{Resultado}
+\resultados{14}
+Los tests del Framework no servían: comparaban el resultado exacto con un número escrito con 16 decimales y fallaban en las dos versiones por el último decimal. Además tenían los nombres intercambiados. Los cambié para que comparen las dos formas de calcular, que es lo que describe el reporte, y guardé los originales aparte. Con el error, mi test obtuvo cerca de 0,003 en vez de \texttt{1j}.
+
+\parte{Problemas}
+Los tests los adapté yo. El programa usa una parte de Qiskit (\texttt{opflow}) que ya no existe en las versiones nuevas. Y como lo que falta es una línea nueva, el test no puede apuntar a ninguna línea del programa.
+
+\paper{FW-21: un qubit que nunca se mide}
+
+\parte{Qué pasa}
+Es un programa de teleportación, que intenta pasar el estado del qubit 0 al qubit 2. El qubit 0 empieza en 1, así que al final el qubit 2 debería dar 1, pero siempre da 0.
+
+\parte{Por qué pasa}
+La línea que mide el qubit 2 está escrita después de ejecutar el circuito. Cuando el circuito se ejecuta, esa medición todavía no existe, y el resultado de ese qubit queda en 0.
+
+\parte{Cómo se arregla}
+El arreglo del Framework es un programa completamente distinto (el ejemplo oficial de teleportación de Qiskit) y además teleporta otro estado, así que no sirve para comparar. Por eso hice un arreglo mínimo (\texttt{fixed\_21\_min.py}) que solo mueve la medición antes de ejecutar.
+
+\parte{Versión usada}
+Qiskit 0.18.3 con Aer 0.9.1. Al principio lo probé en Mac sin Aer, pero lo repetí en Windows con Aer porque el programa lo usa.
+
+\parte{Resultado}
+\resultados{21}
+Los tests revisan que el qubit 2 dé 1. Mi test usa como referencia el arreglo mínimo.
+
+\parte{Problemas}
+El Framework no traía tests para este bug, así que los escribí yo, igual que el arreglo mínimo.
+
+\paper{FW-29: un algoritmo mal escrito}
+
+\parte{Qué pasa}
+El programa usa el algoritmo de estimación de fase (QPE), que sirve para obtener un número a partir de un circuito. El resultado más común debería ser \texttt{011}, pero aparece en menos del 10\% de las mediciones.
+
+\parte{Por qué pasa}
+Una parte del algoritmo, la QFT inversa, la escribió el usuario a mano y le quedó mal: le faltan unas puertas (SWAP), otras están en el orden equivocado y algunos ángulos no son los correctos.
+
+\parte{Cómo se arregla}
+Reescribiendo esa función completa, que son varias líneas.
+
+\parte{Versión usada}
+Qiskit 0.12.0. Por la fecha de la pregunta (diciembre de 2019) correspondía la 0.11, pero esa no se puede instalar con mi Python en Windows, así que usé la más cercana que sí funcionaba.
+
+\parte{Resultado}
+\resultados{29}
+El test del Framework mide 1000 veces y pide que \texttt{011} salga al menos 500 veces. Con el error salió 91, 77 y 92 veces, y con el arreglo 809, 829 y 815. Mi test fija la ``semilla'' del simulador, para que el resultado sea siempre el mismo.
+
+\parte{Problemas}
+El test del Framework no fija la semilla, aunque la diferencia es tan grande que da igual. El programa usa funciones que ya no existen en Qiskit nuevo. Y el test solo dice que el resultado está mal, no dónde.
+
+\paper{Análisis estático con LintQ}
+
+Hacer análisis estático es revisar el código sin ejecutarlo, buscando patrones que suelen ser errores. LintQ es una herramienta que hace esto para programas de Qiskit. Tiene 10 reglas: 6 de precisión alta, que casi siempre aciertan, y 4 de precisión media. Por ejemplo, avisa si se aplica una puerta a un qubit que ya se midió, o si un circuito tiene más qubits que bits para guardar los resultados.
+
+La corrí en Docker con las versiones que pide (LintQ, commit \texttt{481ca24}, y CodeQL 2.11.2). La pasé por separado por el programa con error, por el arreglado y, en FW-21, también por el arreglo mínimo. Cada archivo tardó unos 8 minutos. Los reportes y los pasos para repetirlo están en \texttt{docs/static\_analysis.md} y \texttt{data/static\_warnings.csv}.
+
 \begin{center}
-\begin{tabular}{lll}
+\small
+\begin{tabular}{lllll}
 \toprule
-Versión & Esperado & Observado (3 ejecuciones) \\
+Bug & Aviso de LintQ & Con error & Arreglado & ¿Tiene que ver con el error? \\
 \midrule
-Con error (\texttt{test\_b9.py}) & Falla & Falló las 3 veces (salida 1) \\
-Corregida (\texttt{test\_f9.py}) & Pasa & Pasó las 3 veces (salida 0) \\
+FW-7 & Más qubits que bits & 1 & 1 & No \\
+FW-8 & Más qubits que bits & 2 & 2 & No \\
+FW-12 & \texttt{measure\_all()} mal usado & 1 & 0 & Sí \\
+FW-14 & Más qubits que bits & 1 & 1 & No \\
+FW-21 & Puerta después de medir & 2 & 0 (mínimo: 2) & En parte \\
+FW-29 & Más qubits que bits & 1 & 1 & No \\
 \bottomrule
 \end{tabular}
 \end{center}
-En la versión con error el test recibió \texttt{()} cuando esperaba \texttt{((0, ShiftPhase(phase, DriveChannel(0))),)}. En la corregida coincidieron.
 
-\parte{Limitaciones}
-Es mal uso de la API, y el issue se cerró casi enseguida. El código usa partes de Qiskit que desaparecieron en versiones nuevas, por lo que solo se puede reproducir con versiones viejas. El mensaje del test no dice dónde está el error, así que en la configuración básica (C1) el modelo dependerá de lo que sepa de la API. Quedan pendientes el análisis estático con LintQ y la revisión de la licencia.
+\parte{Qué encontré}
+En cuatro bugs (7, 8, 14 y 29) LintQ solo avisa que el circuito tiene más qubits que bits para guardar los resultados. Es un aviso de precisión media y sale igual en el programa con error y en el arreglado. En estos programas no es un problema, porque esos circuitos no se miden: se usan para otra cosa (armar el diagrama, sacar una matriz o calcular un valor esperado), y en FW-29 el qubit que no se mide se deja así a propósito.
 
-\paper{Conclusión general de los tests}
-Los dos bugs se comportaron como esperábamos: el test falla con el error y pasa con la corrección, las 3 veces en cada caso (12 ejecuciones en total, todas con el resultado esperado). Los dos son errores de uso de la API que no lanzan ninguna excepción, y eso los hace parecidos a las ``fallas silenciosas'' que describen varios de los papers. La contra es que ambos son simples y dependen de versiones antiguas de Qiskit, justo el problema de versiones que plantea el primer paper.
+FW-12 es el único caso donde LintQ apunta justo al error. Avisa, con una regla de precisión alta, que se usa \texttt{measure\_all()} en un circuito que ya tenía bits para los resultados. El aviso está en la misma línea del error y desaparece con el arreglo.
+
+En FW-21 también hay un aviso de precisión alta: hay dos puertas aplicadas sobre qubits que ya se midieron. El aviso desaparece con el arreglo del Framework, pero sigue en mi arreglo mínimo, que también pasa el test. Entonces LintQ marca algo raro cerca del error, pero no el error en sí, que es medir el qubit 2 después de ejecutar. Este caso también muestra que un aviso puede desaparecer solo porque el arreglo cambió mucho el código, y no porque apuntara al error.
+
+LintQ no tiene reglas para qubits cambiados de lugar, pasos que faltan o algoritmos mal escritos, que es justo lo que pasa en los otros cuatro bugs. Esto coincide con lo que dicen algunos de los papers: las herramientas con reglas fijas no ven los errores que dependen de lo que el programa quiere hacer.
+
+\parte{Qué significa para el estudio}
+En la condición C2 el modelo recibe los avisos de LintQ. En 4 de los 6 bugs esos avisos no tienen nada que ver con el error, en FW-21 apuntan cerca y en FW-12 apuntan justo al error. Así puedo comparar: ver si los avisos que no tienen que ver confunden al modelo (por ejemplo, si agrega mediciones que no hacen falta) y si el aviso correcto de FW-12 lo ayuda. Para eso voy a revisar a mano cada arreglo que proponga el modelo.
+
+\parte{Cómo encontré FW-12}
+Como con los primeros 5 bugs LintQ casi no avisaba nada útil, revisé a mano el código de los otros bugs buscando lo que miran sus reglas. Encontré dos candidatos, y al correr LintQ sobre ellos en los dos avisó justo del error: FW-12, que agregué al piloto, y FW-28. FW-28 usa \texttt{iden()}, una función que Qiskit eliminó. LintQ avisa que es una función obsoleta y el aviso desaparece en la versión arreglada, que usa \texttt{id()}. No lo agregué al piloto porque el programa se cae con un error y se arregla cambiando el nombre de una función, pero me puede servir para comparar.
+
+\paper{Conclusión de los tests}
+Los 6 bugs se comportaron como esperaba: con el error los tests fallan y con el arreglo pasan, las 3 veces en cada caso. En total fueron 72 ejecuciones (los tests del Framework y mi test, 3 veces con el error y 3 con el arreglo, en cada bug) y todas dieron lo esperado.
+\begin{center}
+\small
+\begin{tabular}{lllll}
+\toprule
+Bug & Test usado & Con error & Arreglado & Qué cambia el arreglo \\
+\midrule
+FW-7 & Del Framework & Falla 3/3 & Pasa 3/3 & 1 línea: los qubits de la pieza nueva \\
+FW-8 & Del Framework & Falla 3/3 & Pasa 3/3 & 2 líneas: el qubit de control \\
+FW-12 & Adaptado & Falla 3/3 & Pasa 3/3 & 1 línea: usar los bits que ya existían \\
+FW-14 & Adaptado & Falla 3/3 & Pasa 3/3 & Se agrega el paso que faltaba \\
+FW-21 & Propio & Falla 3/3 & Pasa 3/3 & Medir el qubit 2 antes de ejecutar \\
+FW-29 & Del Framework & Falla 3/3 & Pasa 3/3 & Se reescribe la QFT inversa \\
+\bottomrule
+\end{tabular}
+\end{center}
+Ninguno se arregla cambiando solo el nombre de una función, y en todos el programa corre sin errores pero da un resultado equivocado. Son errores de distinto tipo: qubits cambiados (FW-7 y FW-8), una función mal usada (FW-12), un paso que falta (FW-14), una medición en el lugar equivocado (FW-21) y un algoritmo mal escrito (FW-29). En casi todos, el test dice que el resultado está mal pero no dónde. LintQ tampoco ayuda mucho: solo en FW-12 apunta justo al error y en FW-21 avisa algo cercano. En FW-28, que no es parte del piloto, también marca el error. Una dificultad es que todos necesitan versiones antiguas de Qiskit (entre la 0.12 y la 0.18), que es el mismo problema que menciona el primer paper.
 
 \end{document}

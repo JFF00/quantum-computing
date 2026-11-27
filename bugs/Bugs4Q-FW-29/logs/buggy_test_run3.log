@@ -1,0 +1,28 @@
+# bug: Bugs4Q-FW-29
+# version: buggy
+# run: 3
+# command: python -W ignore test_b29.py   (cwd: bugs/Bugs4Q-FW-29)
+# interpreter: envs/bug29/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T22:35:46
+# duration_s: 1.31
+# exit_code: 1
+----- stdout -----
+{'000': 16, '100': 129, '010': 491, '011': 92, '001': 1, '111': 149, '110': 122}
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug29\.venv\lib\site-packages\qiskit\version.py:21: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+F
+======================================================================
+FAIL: test_b29 (__main__.TestAerSimulation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_b29.py", line 54, in test_b29
+    self.assertAlmostEqual(answer['011'], 750, delta = 250)
+AssertionError: 92 != 750 within 250 delta (658 difference)
+
+----------------------------------------------------------------------
+Ran 1 test in 0.034s
+
+FAILED (failures=1)
+

@@ -1,0 +1,27 @@
+# bug: Bugs4Q-FW-16
+# version: fixed
+# run: 2
+# command: python -W ignore test_f16.py   (cwd: bugs/Bugs4Q-FW-16)
+# interpreter: envs/bug16/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T22:49:31
+# duration_s: 2.89
+# exit_code: 0
+----- stdout -----
+[0.70710678+0.j 0.        +0.j 0.        +0.j 0.        +0.j
+ 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j
+ 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j
+ 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j
+ 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j
+ 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j
+ 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j
+ 0.        +0.j 0.        +0.j 0.        +0.j 0.70710678+0.j]
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug16\.venv\lib\site-packages\qiskit\version.py:21: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.075s
+
+OK
+

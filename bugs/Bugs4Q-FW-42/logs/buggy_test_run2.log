@@ -1,0 +1,37 @@
+# bug: Bugs4Q-FW-42
+# version: buggy
+# run: 2
+# command: python -W ignore test_b42.py   (cwd: bugs/Bugs4Q-FW-42)
+# interpreter: envs/bug42/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T23:07:26
+# duration_s: 1.39
+# exit_code: 1
+----- stdout -----
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug42\.venv\lib\site-packages\qiskit\version.py:21: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug42\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_lite\fastsparse.py:57: DeprecationWarning: Please use `upcast` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug42\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_lite\fastsparse.py:57: DeprecationWarning: Please use `isdense` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug42\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_lite\fastsparse.py:57: DeprecationWarning: Please use `isscalarlike` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug42\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_lite\fastsparse.py:57: DeprecationWarning: Please use `get_index_dtype` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug42\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_lite\fastsparse.py:58: DeprecationWarning: Please use `SparseEfficiencyWarning` from the `scipy.sparse` namespace, the `scipy.sparse.base` namespace is deprecated.
+  from scipy.sparse.base import SparseEfficiencyWarning
+E
+======================================================================
+ERROR: test_b42 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_b42.py", line 65, in test_b42
+    n0 = n0 + result.get_data("solve_linear_sys")['counts']['1000']
+AttributeError: 'Result' object has no attribute 'get_data'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.024s
+
+FAILED (errors=1)
+

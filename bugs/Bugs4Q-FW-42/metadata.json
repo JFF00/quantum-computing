@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-42",
+  "source_url": "https://quantumcomputing.stackexchange.com/questions/9195/attributeerror-result-object-has-no-attribute-get-data",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/42/buggy_42.py",
+  "fixed_ref": "qiskit/42/fixed_42.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.12.0, qiskit-aer 0.4.0",
+  "test_command": "python -W ignore test_b42.py (buggy, esperado exit 1); python -W ignore test_f42.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug42/.venv). numpy fijado a 1.19.5 y matplotlib a 3.3.4. La pregunta (dic-2019) no indica versiones; Terra 0.11 no tiene wheel cp38 para Windows, se eligió Terra 0.12.0 + Aer 0.4.0, que reproduce el AttributeError literal. Tests del Framework adaptados: se eliminó el try/except/else que hacía pasar el test cuando había excepción. Dependencias completas en envs/bug42/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

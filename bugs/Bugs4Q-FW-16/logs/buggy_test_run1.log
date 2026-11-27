@@ -1,0 +1,32 @@
+# bug: Bugs4Q-FW-16
+# version: buggy
+# run: 1
+# command: python -W ignore test_b16.py   (cwd: bugs/Bugs4Q-FW-16)
+# interpreter: envs/bug16/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T22:49:22
+# duration_s: 51.93
+# exit_code: 1
+----- stdout -----
+[1.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j
+ 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j
+ 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j
+ 0.+0.j 0.+0.j]
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug16\.venv\lib\site-packages\qiskit\version.py:21: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+F
+======================================================================
+FAIL: test_b16 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_b16.py", line 25, in test_b16
+    self.assertEqual(str(sim_result.get_statevector(0)),'[0.70710678+0.j 0.        +0.j 0.        +0.j 0.        +0.j\n 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j\n 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j\n 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j\n 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j\n 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j\n 0.        +0.j 0.        +0.j 0.        +0.j 0.        +0.j\n 0.        +0.j 0.        +0.j 0.        +0.j 0.70710678+0.j]')
+AssertionError: '[1.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j 0.+0.j[185 chars]0.j]' != '[0.70710678+0.j 0.        +0.j 0.        +[449 chars]0.j]'
+Diff is 741 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 1 test in 0.036s
+
+FAILED (failures=1)
+

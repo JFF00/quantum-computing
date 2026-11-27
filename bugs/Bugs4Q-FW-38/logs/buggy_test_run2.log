@@ -1,0 +1,37 @@
+# bug: Bugs4Q-FW-38
+# version: buggy
+# run: 2
+# command: python -W ignore test_b38.py   (cwd: bugs/Bugs4Q-FW-38)
+# interpreter: envs/bug38/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T22:49:40
+# duration_s: 7.94
+# exit_code: 1
+----- stdout -----
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug38\.venv\lib\site-packages\qiskit\circuit\equivalence.py:18: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug38\.venv\lib\site-packages\qiskit\version.py:20: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+Simulation failed and returned the following error message:
+ERROR: Failed to load qobj: Duplicate key "statevector" in save instruction.
+E
+======================================================================
+ERROR: test_b38 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_b38.py", line 14, in test_b38
+    statevectors = job.result().get_statevector()
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug38\.venv\lib\site-packages\qiskit\result\result.py", line 325, in get_statevector
+    self.data(experiment)["statevector"], decimals=decimals
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug38\.venv\lib\site-packages\qiskit\result\result.py", line 198, in data
+    return self._get_experiment(experiment).data.to_dict()
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug38\.venv\lib\site-packages\qiskit\result\result.py", line 368, in _get_experiment
+    raise QiskitError(
+qiskit.exceptions.QiskitError: 'You have to select a circuit or schedule when there is more than one available'
+
+----------------------------------------------------------------------
+Ran 1 test in 1.616s
+
+FAILED (errors=1)
+

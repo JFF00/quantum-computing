@@ -5,8 +5,9 @@
   "buggy_ref": "qiskit/21/buggy_21.py",
   "fixed_ref": "qiskit/21/fixed_21.py",
   "python_version": "3.8.20",
-  "qiskit_version": "qiskit-terra 0.18.3",
+  "qiskit_version": "qiskit-terra 0.18.3, qiskit-aer 0.9.1",
   "test_command": "python -W ignore test_b21.py (buggy, esperado exit 1); python -W ignore test_f21.py (fixed, esperado exit 0)",
-  "environment_notes": "conda osx-64 (Rosetta) Python 3.8.20. El benchmark no indica versiones; se eligió Terra 0.18.3 y el test fue escrito para este proyecto (el framework no incluye test para este bug). Dependencias completas en logs/environment.txt.",
-  "license_review": "PENDIENTE"
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug21/.venv), qiskit-aer 0.9.1 añadido para ejecutar buggy_21.py (usa Aer). Probado inicialmente en macOS (conda osx-64, sin qiskit-aer). El benchmark no indica versiones; se eligió Terra 0.18.3. Tests test_b21/test_f21 escritos para el proyecto. Test a nivel de programa: test_program_21.py con referencia fixed_21_min.py. Dependencias completas en envs/bug21/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE",
+  "program_test": "BUG_PROGRAM=<programa> python -W ignore test_program_21.py (buggy_21.py: exit 1; fixed_21_min.py: exit 0)"
 }

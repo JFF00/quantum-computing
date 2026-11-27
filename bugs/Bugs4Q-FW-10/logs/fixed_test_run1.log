@@ -1,0 +1,24 @@
+# bug: Bugs4Q-FW-10
+# version: fixed
+# run: 1
+# command: python -W ignore test_f10.py   (cwd: bugs/Bugs4Q-FW-10)
+# interpreter: envs/bug10/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T23:03:15
+# duration_s: 1.28
+# exit_code: 0
+----- stdout -----
+     ┌──────────┐
+q_0: ┤ U1(0.24) ├
+     └──────────┘
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug10\.venv\lib\site-packages\qiskit\version.py:21: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug10\.venv\lib\site-packages\qiskit\dagcircuit\dagcircuit.py:31: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+OK
+

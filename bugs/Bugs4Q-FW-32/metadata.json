@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-32",
+  "source_url": "https://quantumcomputing.stackexchange.com/questions/9209/how-to-use-parallel-executions-of-circuits",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/32/buggy_32.py",
+  "fixed_ref": "qiskit/32/fixed_32.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.12.0, qiskit-aer 0.4.0",
+  "test_command": "python -W ignore test_b32.py (buggy, esperado exit 1); python -W ignore test_f32.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64 (12 núcleos), venv con CPython 3.8.20 gestionado por uv (envs/bug32/.venv). numpy fijado a 1.19.5. La pregunta (dic-2019) no indica versiones; Terra 0.11 / Aer 0.3.4 no tienen wheel cp38 para Windows, se eligieron Terra 0.12.0 + Aer 0.4.0. Tests escritos para este proyecto (el Framework no trae): comprueban result.metadata['parallel_experiments'] > 1; requieren >= 2 núcleos. Dependencias completas en envs/bug32/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

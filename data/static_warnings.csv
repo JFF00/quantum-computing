@@ -1,0 +1,19 @@
+bug_id,variant,file,rule_id,rule_name,precision,severity,start_line,start_column,end_line,end_column,message
+Bugs4Q-FW-7,buggy,buggy_7.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,13,11,13,29,Circuit 'circuit' has more qubits (4) than classical  bits (0)
+Bugs4Q-FW-7,fixed,fixed_7.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,13,11,13,29,Circuit 'circuit' has more qubits (4) than classical  bits (0)
+Bugs4Q-FW-8,buggy,buggy_8.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,7,8,7,25,Circuit 'circ' has more qubits (3) than classical  bits (0)
+Bugs4Q-FW-8,buggy,buggy_8.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,14,6,14,31,Circuit 'qc' has more qubits (4) than classical  bits (0)
+Bugs4Q-FW-8,fixed,fixed_8.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,7,8,7,25,Circuit 'circ' has more qubits (3) than classical  bits (0)
+Bugs4Q-FW-8,fixed,fixed_8.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,14,6,14,31,Circuit 'qc' has more qubits (4) than classical  bits (0)
+Bugs4Q-FW-14,buggy,buggy_14.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,6,9,6,26,Circuit 'state' has more qubits (2) than classical  bits (0)
+Bugs4Q-FW-14,fixed,fixed_14.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,6,9,6,26,Circuit 'state' has more qubits (2) than classical  bits (0)
+Bugs4Q-FW-29,buggy,buggy_29.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,25,7,25,30,Circuit 'qpe' has more qubits (4) than classical  bits (3)
+Bugs4Q-FW-29,fixed,fixed_29.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,30,7,30,30,Circuit 'qpe' has more qubits (4) than classical  bits (3)
+Bugs4Q-FW-21,buggy,buggy_21.py,ql-operation-after-measurement,ql-operation-after-measurement,high,warning,18,1,18,12,"Operation 'cx' on qubit 1 after measurement at location: (17, 1)."
+Bugs4Q-FW-21,buggy,buggy_21.py,ql-operation-after-measurement,ql-operation-after-measurement,high,warning,19,1,19,12,"Operation 'cz' on qubit 0 after measurement at location: (16, 1)."
+Bugs4Q-FW-21,fixed_min,fixed_21_min.py,ql-operation-after-measurement,ql-operation-after-measurement,high,warning,20,1,20,12,"Operation 'cx' on qubit 1 after measurement at location: (19, 1)."
+Bugs4Q-FW-21,fixed_min,fixed_21_min.py,ql-operation-after-measurement,ql-operation-after-measurement,high,warning,21,1,21,12,"Operation 'cz' on qubit 0 after measurement at location: (18, 1)."
+Bugs4Q-FW-12,buggy,buggy_12.py,ql-measure-all-abuse,ql-measure-all-abuse,high,warning,6,1,6,17,"measure_all() on the circuit 'qc' (at location:4, 6)  when it has already 2 classical bits."
+Bugs4Q-FW-28,buggy,buggy_28.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,3,11,3,28,Circuit 'circuit' has more qubits (1) than classical  bits (0)
+Bugs4Q-FW-28,buggy,buggy_28.py,ql-deprecated-identity,ql-deprecated-identity,medium,warning,4,1,4,16,The deprecated iden() API is called.
+Bugs4Q-FW-28,fixed,fixed_28.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,3,11,3,28,Circuit 'circuit' has more qubits (1) than classical  bits (0)

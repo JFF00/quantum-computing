@@ -1,0 +1,37 @@
+# bug: Bugs4Q-FW-12
+# version: buggy
+# run: 2
+# command: python -W ignore test_b12.py   (cwd: bugs/Bugs4Q-FW-12)
+# interpreter: envs/bug12/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T22:51:02
+# duration_s: 1.33
+# exit_code: 1
+----- stdout -----
+{'10 00': 256, '00 00': 261, '11 00': 265, '01 00': 242}
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug12\.venv\lib\site-packages\qiskit\circuit\equivalence.py:18: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug12\.venv\lib\site-packages\qiskit\version.py:20: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+F
+======================================================================
+FAIL: test_b12 (__main__.TestAerSimulation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_b12.py", line 24, in test_b12
+    self.assertEqual(sorted(res.get_counts().keys()), ['00', '01', '10', '11'])
+AssertionError: Lists differ: ['00 00', '01 00', '10 00', '11 00'] != ['00', '01', '10', '11']
+
+First differing element 0:
+'00 00'
+'00'
+
+- ['00 00', '01 00', '10 00', '11 00']
++ ['00', '01', '10', '11']
+
+----------------------------------------------------------------------
+Ran 1 test in 0.409s
+
+FAILED (failures=1)
+

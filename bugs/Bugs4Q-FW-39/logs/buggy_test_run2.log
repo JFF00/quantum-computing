@@ -1,0 +1,32 @@
+# bug: Bugs4Q-FW-39
+# version: buggy
+# run: 2
+# command: python -W ignore test_b39.py   (cwd: bugs/Bugs4Q-FW-39)
+# interpreter: envs/bug39/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T23:00:42
+# duration_s: 6.27
+# exit_code: 1
+----- stdout -----
+{'0000': 1024}
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug39\.venv\lib\site-packages\qiskit\circuit\equivalence.py:18: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug39\.venv\lib\site-packages\qiskit\version.py:20: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug39\.venv\lib\site-packages\qiskit\visualization\counts_visualization.py:226: MatplotlibDeprecationWarning: The label function was deprecated in Matplotlib 3.1 and will be removed in 3.8. Use Tick.label1 instead.
+  tick.label.set_fontsize(14)
+F
+======================================================================
+FAIL: test_b39 (__main__.TestAerSimulation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_b39.py", line 24, in test_b39
+    self.assertDictAlmostEqual({'0000':64, '0001':64, '0010':64, '0011':64, '0100':64, '0101':64, '0110':64, '0111':64, '1000':64, '1001':64, '1010':64, '1011':64, '1100':64, '1101':64, '1110':64, '1111':64},
+AssertionError: ('0110': 64 != 0), ('1101': 64 != 0), ('0010': 64 != 0), ('0001': 64 != 0), ('1110': 64 != 0), ('1010': 64 != 0), ('0000': 64 != 1024), ('1100': 64 != 0), ('1001': 64 != 0), ('1011': 64 != 0), ('0100': 64 != 0), ('0011': 64 != 0), ('0101': 64 != 0), ('0111': 64 != 0), ('1000': 64 != 0), ('1111': 64 != 0) within 30 delta
+
+----------------------------------------------------------------------
+Ran 1 test in 0.767s
+
+FAILED (failures=1)
+

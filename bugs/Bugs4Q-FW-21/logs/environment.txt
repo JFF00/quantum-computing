@@ -12,6 +12,7 @@ ply==3.11
 psutil==7.2.2
 python-constraint==1.4.0
 python-dateutil==3.0.0
+qiskit-aer==0.9.1
 qiskit-terra==0.18.3
 referencing==0.35.1
 retworkx==0.15.1

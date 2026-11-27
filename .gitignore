@@ -3,7 +3,9 @@
 
 # Entornos virtuales
 qiskitvenv/
-envs/
+# envs/bugN/: se versiona requirements.txt; el entorno instalado no
+envs/*/.venv/
+envs/*/.conda/
 .venv/
 venv/
 
@@ -22,3 +24,12 @@ __pycache__/
 *.fdb_latexmk
 *.bbl
 *.blg
+
+# Los logs de ejecución de los bugs son evidencia: sí se versionan
+!bugs/**/logs/*.log
+!bugs/**/static_analysis/*.log
+
+# Herramientas externas clonadas (LintQ, MIT) y bases de datos CodeQL temporales:
+# se referencian por URL/commit en docs/static_analysis.md
+tools/
+work/

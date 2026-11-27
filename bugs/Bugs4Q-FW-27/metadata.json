@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-27",
+  "source_url": "https://stackoverflow.com/questions/63342432/python-quantum-fourier-transform",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/27/buggy_27.py",
+  "fixed_ref": "qiskit/27/fixed_27.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.15.0",
+  "test_command": "python -W ignore test_b27.py (buggy, esperado exit 1); python -W ignore test_f27.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug27/.venv). numpy fijado a 1.19.5. La pregunta (ago-2020) no indica versiones; se eligió Terra 0.15.0 por fecha (0.14.2, 0.16.4 y 0.17.4 dan el mismo resultado). test_b27.py adaptado: valor esperado '101' (salida buggy) cambiado a '011' (el del test fixed); test_f27.py sin cambios. Usa BasicAer. Dependencias completas en envs/bug27/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

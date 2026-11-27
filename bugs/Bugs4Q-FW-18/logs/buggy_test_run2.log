@@ -1,0 +1,46 @@
+# bug: Bugs4Q-FW-18
+# version: buggy
+# run: 2
+# command: python -W ignore test_b18.py   (cwd: bugs/Bugs4Q-FW-18)
+# interpreter: envs/bug18/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T23:05:04
+# duration_s: 1.38
+# exit_code: 1
+----- stdout -----
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug18\.venv\lib\site-packages\qiskit\circuit\equivalence.py:18: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug18\.venv\lib\site-packages\qiskit\version.py:19: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug18\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_extra_lite\fastsparse.py:57: DeprecationWarning: Please use `upcast` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug18\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_extra_lite\fastsparse.py:57: DeprecationWarning: Please use `isdense` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug18\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_extra_lite\fastsparse.py:57: DeprecationWarning: Please use `isscalarlike` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug18\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_extra_lite\fastsparse.py:57: DeprecationWarning: Please use `get_index_dtype` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug18\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_extra_lite\fastsparse.py:58: DeprecationWarning: Please use `SparseEfficiencyWarning` from the `scipy.sparse` namespace, the `scipy.sparse.base` namespace is deprecated.
+  from scipy.sparse.base import SparseEfficiencyWarning
+F
+======================================================================
+FAIL: test_b18 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_b18.py", line 16, in test_b18
+    result = execute(qc, backend, 100).result()
+TypeError: 'int' object is not iterable
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "test_b18.py", line 19, in test_b18
+    self.fail('TypeError raised: %s' % e)
+AssertionError: TypeError raised: 'int' object is not iterable
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)
+

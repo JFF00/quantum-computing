@@ -1,0 +1,33 @@
+# bug: Bugs4Q-FW-29
+# version: program_buggy
+# run: 2
+# command: BUG_PROGRAM=buggy_29.py python -W ignore test_program_29.py   (cwd: bugs/Bugs4Q-FW-29)
+# interpreter: envs/bug29/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T23:44:46
+# duration_s: 1.60
+# exit_code: 1
+----- stdout -----
+{'011': 89, '001': 3, '110': 126, '100': 134, '000': 20, '101': 1, '010': 463, '111': 164}
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug29\.venv\lib\site-packages\qiskit\version.py:21: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+F
+======================================================================
+FAIL: test_program_29 (__main__.TestProgram29)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_program_29.py", line 30, in test_program_29
+    self.assertEqual(best, EXPECTED, "resultado más frecuente %r; se esperaba %r" % (best, EXPECTED))
+AssertionError: '010' != '011'
+- 010
+?   ^
++ 011
+?   ^
+ : resultado más frecuente '010'; se esperaba '011'
+
+----------------------------------------------------------------------
+Ran 1 test in 1.393s
+
+FAILED (failures=1)
+

@@ -1,0 +1,2 @@
+bug_id,variant,file,rule_id,rule_name,precision,severity,start_line,start_column,end_line,end_column,message
+Bugs4Q-FW-12,buggy,buggy_12.py,ql-measure-all-abuse,ql-measure-all-abuse,high,warning,6,1,6,17,"measure_all() on the circuit 'qc' (at location:4, 6)  when it has already 2 classical bits."

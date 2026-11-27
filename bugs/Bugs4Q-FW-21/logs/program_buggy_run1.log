@@ -1,0 +1,30 @@
+# bug: Bugs4Q-FW-21
+# version: program_buggy
+# run: 1
+# command: BUG_PROGRAM=buggy_21.py python -W ignore test_program_21.py   (cwd: bugs/Bugs4Q-FW-21)
+# interpreter: envs/bug21/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T23:44:29
+# duration_s: 9.08
+# exit_code: 1
+----- stdout -----
+bit del qubit teleportado: {'0': 1, '1': 0}
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug21\.venv\lib\site-packages\qiskit\circuit\equivalence.py:18: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug21\.venv\lib\site-packages\qiskit\version.py:20: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+F
+======================================================================
+FAIL: test_program_21 (__main__.TestProgram21)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_program_21.py", line 35, in test_program_21
+    self.assertEqual(values["0"], 0, "el qubit teleportado debería medirse siempre como '1': %s" % values)
+AssertionError: 1 != 0 : el qubit teleportado debería medirse siempre como '1': {'0': 1, '1': 0}
+
+----------------------------------------------------------------------
+Ran 1 test in 8.849s
+
+FAILED (failures=1)
+

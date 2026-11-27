@@ -1,0 +1,2 @@
+bug_id,variant,file,rule_id,rule_name,precision,severity,start_line,start_column,end_line,end_column,message
+Bugs4Q-FW-7,fixed,fixed_7.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,13,11,13,29,Circuit 'circuit' has more qubits (4) than classical  bits (0)

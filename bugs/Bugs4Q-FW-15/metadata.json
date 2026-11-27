@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-15",
+  "source_url": "https://github.com/Qiskit/qiskit-terra/issues/7032",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/15/buggy_15.py",
+  "fixed_ref": "qiskit/15/fixed_15.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.18.2",
+  "test_command": "python -W ignore test_b15.py (buggy, esperado exit 1); python -W ignore test_f15.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug15/.venv). numpy fijado a 1.19.5. El issue indica Terra latest (sep-2021); se eligió 0.18.2, última publicada antes del issue. En 0.19.2 el buggy ya no lanza TypeError (no reproduce). Tests ADAPTADOS: los del Framework exigen TypeError (buggy pasa, fixed falla); se invirtió para que el test falle si hay TypeError. Originales en framework_tests/. Dependencias completas en envs/bug15/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

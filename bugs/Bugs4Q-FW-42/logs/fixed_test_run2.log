@@ -1,0 +1,69 @@
+# bug: Bugs4Q-FW-42
+# version: fixed
+# run: 2
+# command: python -W ignore test_f42.py   (cwd: bugs/Bugs4Q-FW-42)
+# interpreter: envs/bug42/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T23:07:33
+# duration_s: 2.77
+# exit_code: 0
+----- stdout -----
+Result(backend_name='qasm_simulator', backend_version='0.4.0', date=datetime.datetime(2026, 11, 15, 23, 7, 32, 13452), header=Obj(backend_name='qasm_simulator', backend_version='0.4.0'), job_id='864a194f-feec-41f4-8ea6-ffb25776dd08', metadata={'max_memory_mb': 15924, 'omp_enabled': True, 'parallel_experiments': 1, 'time_taken': 0.0104412}, qobj_id='c36d189e-0334-40c2-8197-d32b71b08ad3', results=[ExperimentResult(data=ExperimentResultData(counts=Obj(0x0=3, 0x4=7760, 0x8=104, 0xc=325)), header=Obj(clbit_labels=[['cr', 0], ['cr', 1], ['cr', 2], ['cr', 3]], creg_sizes=[['cr', 4]], memory_slots=4, n_qubits=4, name='solve_linear_sys', qreg_sizes=[['qr', 4]], qubit_labels=[['qr', 0], ['qr', 1], ['qr', 2], ['qr', 3]]), meas_level=<MeasLevel.CLASSIFIED: 2>, metadata={'measure_sampling': True, 'method': 'statevector', 'parallel_shots': 1, 'parallel_state_update': 12}, seed_simulator=1412457102, shots=8192, status='DONE', success=True, time_taken=0.010277)], status='COMPLETED', success=True, time_taken=0.016090869903564453)
+104
+325
+0.32
+Result(backend_name='qasm_simulator', backend_version='0.4.0', date=datetime.datetime(2026, 11, 15, 23, 7, 32, 79417), header=Obj(backend_name='qasm_simulator', backend_version='0.4.0'), job_id='9427bf32-7af6-45db-ac89-cd7899379e29', metadata={'max_memory_mb': 15924, 'omp_enabled': True, 'parallel_experiments': 1, 'time_taken': 0.0396981}, qobj_id='0cca18b5-df94-4768-9c60-22217cab557e', results=[ExperimentResult(data=ExperimentResultData(counts=Obj(0x0=3, 0x4=7810, 0x8=66, 0xc=313)), header=Obj(clbit_labels=[['cr', 0], ['cr', 1], ['cr', 2], ['cr', 3]], creg_sizes=[['cr', 4]], memory_slots=4, n_qubits=4, name='solve_linear_sys', qreg_sizes=[['qr', 4]], qubit_labels=[['qr', 0], ['qr', 1], ['qr', 2], ['qr', 3]]), meas_level=<MeasLevel.CLASSIFIED: 2>, metadata={'measure_sampling': False, 'method': 'statevector', 'parallel_shots': 12, 'parallel_state_update': 1}, seed_simulator=1239097685, shots=8192, status='DONE', success=True, time_taken=0.0395997)], status='COMPLETED', success=True, time_taken=0.04993605613708496)
+170
+638
+0.2664576802507837
+Result(backend_name='qasm_simulator', backend_version='0.4.0', date=datetime.datetime(2026, 11, 15, 23, 7, 32, 189714), header=Obj(backend_name='qasm_simulator', backend_version='0.4.0'), job_id='081794f2-0354-4392-aa9a-a02934fce34c', metadata={'max_memory_mb': 15924, 'omp_enabled': True, 'parallel_experiments': 1, 'time_taken': 0.0535965}, qobj_id='32aba807-60f4-4638-9718-e546ce02aa51', results=[ExperimentResult(data=ExperimentResultData(counts=Obj(0x0=6, 0x4=7795, 0x8=86, 0xc=305)), header=Obj(clbit_labels=[['cr', 0], ['cr', 1], ['cr', 2], ['cr', 3]], creg_sizes=[['cr', 4]], memory_slots=4, n_qubits=4, name='solve_linear_sys', qreg_sizes=[['qr', 4]], qubit_labels=[['qr', 0], ['qr', 1], ['qr', 2], ['qr', 3]]), meas_level=<MeasLevel.CLASSIFIED: 2>, metadata={'measure_sampling': False, 'method': 'statevector', 'parallel_shots': 12, 'parallel_state_update': 1}, seed_simulator=916114630, shots=8192, status='DONE', success=True, time_taken=0.0533964)], status='COMPLETED', success=True, time_taken=0.0837252140045166)
+256
+943
+0.271474019088017
+Result(backend_name='qasm_simulator', backend_version='0.4.0', date=datetime.datetime(2026, 11, 15, 23, 7, 32, 346216), header=Obj(backend_name='qasm_simulator', backend_version='0.4.0'), job_id='77e47a7a-23e2-4752-babb-c1664bd85c61', metadata={'max_memory_mb': 15924, 'omp_enabled': True, 'parallel_experiments': 1, 'time_taken': 0.0924378}, qobj_id='2fb964e8-6dc0-401a-aa32-9c048c14c3ee', results=[ExperimentResult(data=ExperimentResultData(counts=Obj(0x0=2, 0x4=7811, 0x8=67, 0xc=312)), header=Obj(clbit_labels=[['cr', 0], ['cr', 1], ['cr', 2], ['cr', 3]], creg_sizes=[['cr', 4]], memory_slots=4, n_qubits=4, name='solve_linear_sys', qreg_sizes=[['qr', 4]], qubit_labels=[['qr', 0], ['qr', 1], ['qr', 2], ['qr', 3]]), meas_level=<MeasLevel.CLASSIFIED: 2>, metadata={'measure_sampling': False, 'method': 'statevector', 'parallel_shots': 12, 'parallel_state_update': 1}, seed_simulator=686724539, shots=8192, status='DONE', success=True, time_taken=0.0921632)], status='COMPLETED', success=True, time_taken=0.12741637229919434)
+323
+1255
+0.25737051792828686
+Result(backend_name='qasm_simulator', backend_version='0.4.0', date=datetime.datetime(2026, 11, 15, 23, 7, 32, 502269), header=Obj(backend_name='qasm_simulator', backend_version='0.4.0'), job_id='cd814074-10f6-477e-af7e-7e5a445c5580', metadata={'max_memory_mb': 15924, 'omp_enabled': True, 'parallel_experiments': 1, 'time_taken': 0.0697896}, qobj_id='38afe01a-bab3-462b-bdf5-f23556421479', results=[ExperimentResult(data=ExperimentResultData(counts=Obj(0x0=6, 0x4=7773, 0x8=70, 0xc=343)), header=Obj(clbit_labels=[['cr', 0], ['cr', 1], ['cr', 2], ['cr', 3]], creg_sizes=[['cr', 4]], memory_slots=4, n_qubits=4, name='solve_linear_sys', qreg_sizes=[['qr', 4]], qubit_labels=[['qr', 0], ['qr', 1], ['qr', 2], ['qr', 3]]), meas_level=<MeasLevel.CLASSIFIED: 2>, metadata={'measure_sampling': False, 'method': 'statevector', 'parallel_shots': 12, 'parallel_state_update': 1}, seed_simulator=2259084534, shots=8192, status='DONE', success=True, time_taken=0.0696133)], status='COMPLETED', success=True, time_taken=0.09648728370666504)
+393
+1598
+0.24593241551939926
+Result(backend_name='qasm_simulator', backend_version='0.4.0', date=datetime.datetime(2026, 11, 15, 23, 7, 32, 682317), header=Obj(backend_name='qasm_simulator', backend_version='0.4.0'), job_id='a236548b-9500-42b4-8e65-9097e95de82c', metadata={'max_memory_mb': 15924, 'omp_enabled': True, 'parallel_experiments': 1, 'time_taken': 0.0994779}, qobj_id='6dc8191b-9f01-4bab-9e3f-2e0775d806da', results=[ExperimentResult(data=ExperimentResultData(counts=Obj(0x0=4, 0x4=7811, 0x8=74, 0xc=303)), header=Obj(clbit_labels=[['cr', 0], ['cr', 1], ['cr', 2], ['cr', 3]], creg_sizes=[['cr', 4]], memory_slots=4, n_qubits=4, name='solve_linear_sys', qreg_sizes=[['qr', 4]], qubit_labels=[['qr', 0], ['qr', 1], ['qr', 2], ['qr', 3]]), meas_level=<MeasLevel.CLASSIFIED: 2>, metadata={'measure_sampling': False, 'method': 'statevector', 'parallel_shots': 12, 'parallel_state_update': 1}, seed_simulator=2269957833, shots=8192, status='DONE', success=True, time_taken=0.0992789)], status='COMPLETED', success=True, time_taken=0.14642858505249023)
+467
+1901
+0.24566017885323513
+Result(backend_name='qasm_simulator', backend_version='0.4.0', date=datetime.datetime(2026, 11, 15, 23, 7, 32, 877101), header=Obj(backend_name='qasm_simulator', backend_version='0.4.0'), job_id='dfe708e3-8312-40ce-a195-a6c76b5e0dea', metadata={'max_memory_mb': 15924, 'omp_enabled': True, 'parallel_experiments': 1, 'time_taken': 0.1064763}, qobj_id='85515e6a-0b5d-49ba-a7f3-b29e38228d26', results=[ExperimentResult(data=ExperimentResultData(counts=Obj(0x0=3, 0x4=7799, 0x8=79, 0xc=311)), header=Obj(clbit_labels=[['cr', 0], ['cr', 1], ['cr', 2], ['cr', 3]], creg_sizes=[['cr', 4]], memory_slots=4, n_qubits=4, name='solve_linear_sys', qreg_sizes=[['qr', 4]], qubit_labels=[['qr', 0], ['qr', 1], ['qr', 2], ['qr', 3]]), meas_level=<MeasLevel.CLASSIFIED: 2>, metadata={'measure_sampling': False, 'method': 'statevector', 'parallel_shots': 12, 'parallel_state_update': 1}, seed_simulator=1321185576, shots=8192, status='DONE', success=True, time_taken=0.1062288)], status='COMPLETED', success=True, time_taken=0.16034436225891113)
+546
+2212
+0.2468354430379747
+Result(backend_name='qasm_simulator', backend_version='0.4.0', date=datetime.datetime(2026, 11, 15, 23, 7, 33, 97921), header=Obj(backend_name='qasm_simulator', backend_version='0.4.0'), job_id='7e85fe12-40c1-4cf8-bfc2-56c77f7dae85', metadata={'max_memory_mb': 15924, 'omp_enabled': True, 'parallel_experiments': 1, 'time_taken': 0.1195533}, qobj_id='64a1c467-8456-4e5f-b93a-ed6a6b18b20c', results=[ExperimentResult(data=ExperimentResultData(counts=Obj(0x0=2, 0x4=7790, 0x8=83, 0xc=317)), header=Obj(clbit_labels=[['cr', 0], ['cr', 1], ['cr', 2], ['cr', 3]], creg_sizes=[['cr', 4]], memory_slots=4, n_qubits=4, name='solve_linear_sys', qreg_sizes=[['qr', 4]], qubit_labels=[['qr', 0], ['qr', 1], ['qr', 2], ['qr', 3]]), meas_level=<MeasLevel.CLASSIFIED: 2>, metadata={'measure_sampling': False, 'method': 'statevector', 'parallel_shots': 12, 'parallel_state_update': 1}, seed_simulator=708672212, shots=8192, status='DONE', success=True, time_taken=0.1191341)], status='COMPLETED', success=True, time_taken=0.18297529220581055)
+629
+2529
+0.2487149070778964
+Result(backend_name='qasm_simulator', backend_version='0.4.0', date=datetime.datetime(2026, 11, 15, 23, 7, 33, 325203), header=Obj(backend_name='qasm_simulator', backend_version='0.4.0'), job_id='e89228eb-103c-4c86-8413-11b829c1b5dd', metadata={'max_memory_mb': 15924, 'omp_enabled': True, 'parallel_experiments': 1, 'time_taken': 0.1292969}, qobj_id='f01aaa22-ee32-41bb-9031-1c836b8bb0d0', results=[ExperimentResult(data=ExperimentResultData(counts=Obj(0x0=2, 0x4=7812, 0x8=67, 0xc=311)), header=Obj(clbit_labels=[['cr', 0], ['cr', 1], ['cr', 2], ['cr', 3]], creg_sizes=[['cr', 4]], memory_slots=4, n_qubits=4, name='solve_linear_sys', qreg_sizes=[['qr', 4]], qubit_labels=[['qr', 0], ['qr', 1], ['qr', 2], ['qr', 3]]), meas_level=<MeasLevel.CLASSIFIED: 2>, metadata={'measure_sampling': False, 'method': 'statevector', 'parallel_shots': 12, 'parallel_state_update': 1}, seed_simulator=800733976, shots=8192, status='DONE', success=True, time_taken=0.1288556)], status='COMPLETED', success=True, time_taken=0.18603944778442383)
+696
+2840
+0.24507042253521127
+Result(backend_name='qasm_simulator', backend_version='0.4.0', date=datetime.datetime(2026, 11, 15, 23, 7, 33, 586648), header=Obj(backend_name='qasm_simulator', backend_version='0.4.0'), job_id='4bc6d503-60fc-431b-b833-c38a1fdda0c1', metadata={'max_memory_mb': 15924, 'omp_enabled': True, 'parallel_experiments': 1, 'time_taken': 0.1512944}, qobj_id='1a4ebfd8-58a8-40c6-8100-fcf7163651b9', results=[ExperimentResult(data=ExperimentResultData(counts=Obj(0x0=1, 0x4=7796, 0x8=92, 0xc=303)), header=Obj(clbit_labels=[['cr', 0], ['cr', 1], ['cr', 2], ['cr', 3]], creg_sizes=[['cr', 4]], memory_slots=4, n_qubits=4, name='solve_linear_sys', qreg_sizes=[['qr', 4]], qubit_labels=[['qr', 0], ['qr', 1], ['qr', 2], ['qr', 3]]), meas_level=<MeasLevel.CLASSIFIED: 2>, metadata={'measure_sampling': False, 'method': 'statevector', 'parallel_shots': 12, 'parallel_state_update': 1}, seed_simulator=1360852081, shots=8192, status='DONE', success=True, time_taken=0.1509906)], status='COMPLETED', success=True, time_taken=0.21630406379699707)
+788
+3143
+0.25071587655106586
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug42\.venv\lib\site-packages\qiskit\version.py:21: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug42\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_lite\fastsparse.py:57: DeprecationWarning: Please use `upcast` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug42\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_lite\fastsparse.py:57: DeprecationWarning: Please use `isdense` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug42\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_lite\fastsparse.py:57: DeprecationWarning: Please use `isscalarlike` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug42\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_lite\fastsparse.py:57: DeprecationWarning: Please use `get_index_dtype` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug42\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_lite\fastsparse.py:58: DeprecationWarning: Please use `SparseEfficiencyWarning` from the `scipy.sparse` namespace, the `scipy.sparse.base` namespace is deprecated.
+  from scipy.sparse.base import SparseEfficiencyWarning
+.
+----------------------------------------------------------------------
+Ran 1 test in 1.610s
+
+OK
+

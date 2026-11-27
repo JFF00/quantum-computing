@@ -1,0 +1,13 @@
+{
+  "bug_id": "Bugs4Q-FW-8",
+  "source_url": "https://github.com/Qiskit/qiskit-terra/issues/5580",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/8/buggy_8.py",
+  "fixed_ref": "qiskit/8/fixed_8.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.18.0",
+  "test_command": "python -W ignore test_b8.py (buggy, esperado exit 1); python -W ignore test_f8.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug8/.venv). numpy fijado a 1.19.5; matplotlib 3.3.4 y pylatexenc 2.10 instalados por qc.draw('mpl'). El issue indica Terra 0.16.1 y Python 3.7.4; en 0.15.0-0.17.4 el dibujo de texto usa 'unitary' y el test de fixed falla, por eso se eligió 0.18.0. Tests del Framework sin modificar. Dependencias completas en envs/bug8/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE",
+  "program_test": "BUG_PROGRAM=<programa> python -W ignore test_program_8.py (buggy_8.py: exit 1; fixed_8.py: exit 0)"
+}

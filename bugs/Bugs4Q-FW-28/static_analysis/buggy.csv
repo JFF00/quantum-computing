@@ -1,0 +1,3 @@
+bug_id,variant,file,rule_id,rule_name,precision,severity,start_line,start_column,end_line,end_column,message
+Bugs4Q-FW-28,buggy,buggy_28.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,3,11,3,28,Circuit 'circuit' has more qubits (1) than classical  bits (0)
+Bugs4Q-FW-28,buggy,buggy_28.py,ql-deprecated-identity,ql-deprecated-identity,medium,warning,4,1,4,16,The deprecated iden() API is called.

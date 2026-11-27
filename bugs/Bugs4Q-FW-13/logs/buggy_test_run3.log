@@ -1,0 +1,44 @@
+# bug: Bugs4Q-FW-13
+# version: buggy
+# run: 3
+# command: python -W ignore test_b13.py   (cwd: bugs/Bugs4Q-FW-13)
+# interpreter: envs/bug13/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T22:52:05
+# duration_s: 1.05
+# exit_code: 1
+----- stdout -----
+Reason: 'The circuit contains non-unitary operations and cannot be controlled. Note that no qiskit.circuit.Instruction objects may be in the circuit for this operation.'
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug13\.venv\lib\site-packages\qiskit\circuit\equivalence.py:18: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug13\.venv\lib\site-packages\qiskit\version.py:20: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+F
+======================================================================
+FAIL: test_b13 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug13\.venv\lib\site-packages\qiskit\circuit\quantumcircuit.py", line 530, in control
+    gate = self.to_gate()
+qiskit.exceptions.QiskitError: 'One or more instructions cannot be converted to a gate. "inner" is not a gate instruction'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "test_b13.py", line 16, in test_b13
+    qc.append(outer_level.control(), [0,1,2])
+qiskit.circuit.exceptions.CircuitError: 'The circuit contains non-unitary operations and cannot be controlled. Note that no qiskit.circuit.Instruction objects may be in the circuit for this operation.'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "test_b13.py", line 21, in test_b13
+    self.fail('Error raised: %r' % e)
+AssertionError: Error raised: CircuitError('The circuit contains non-unitary operations and cannot be controlled. Note that no qiskit.circuit.Instruction objects may be in the circuit for this operation.')
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)
+

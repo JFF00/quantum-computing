@@ -1,0 +1,35 @@
+{
+  "bug_id": "Bugs4Q-FW-12",
+  "suite": "LintQ-all.qls",
+  "tool": {
+    "codeql_cli": "2.11.2",
+    "docker_image": "lintq",
+    "docker_image_id": "sha256:94b918cf6087faed12be112a9e91d2bd99b4e6ee5ce196c58c8401420295ebdf",
+    "lintq_repo": "https://github.com/sola-st/LintQ",
+    "lintq_commit": "481ca24dfabf032eb93cdf728369242b25a5216e"
+  },
+  "date": "2026-11-27T19:59:08",
+  "variants": {
+    "buggy": {
+      "file": "bugs/Bugs4Q-FW-12/buggy_12.py",
+      "status": "ok",
+      "warnings": 1,
+      "by_rule": {
+        "ql-measure-all-abuse": 1
+      }
+    },
+    "fixed": {
+      "file": "bugs/Bugs4Q-FW-12/fixed_12.py",
+      "status": "ok",
+      "warnings": 0,
+      "by_rule": {}
+    }
+  },
+  "diff_buggy_vs_fixed": {
+    "only_in_buggy": [
+      "ql-measure-all-abuse: measure_all() on the circuit 'qc' (at location:4, 6)  when it has already 2 classical bits."
+    ],
+    "only_in_fixed": [],
+    "in_both": []
+  }
+}

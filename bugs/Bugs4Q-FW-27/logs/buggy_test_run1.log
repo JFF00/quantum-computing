@@ -1,0 +1,36 @@
+# bug: Bugs4Q-FW-27
+# version: buggy
+# run: 1
+# command: python -W ignore test_b27.py   (cwd: bugs/Bugs4Q-FW-27)
+# interpreter: envs/bug27/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T23:00:36
+# duration_s: 22.34
+# exit_code: 1
+----- stdout -----
+{'101': 500}
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug27\.venv\lib\site-packages\qiskit\version.py:21: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug27\.venv\lib\site-packages\qiskit\dagcircuit\dagcircuit.py:31: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+F
+======================================================================
+FAIL: test_b27 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_b27.py", line 34, in test_b27
+    self.assertDictEqual({'011': 500}, counts)
+AssertionError: {'011': 500} != {'101': 500}
+- {'011': 500}
+?    -
+
++ {'101': 500}
+?   +
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.370s
+
+FAILED (failures=1)
+

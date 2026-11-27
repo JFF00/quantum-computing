@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-16",
+  "source_url": "https://github.com/Qiskit/qiskit-aer/issues/135",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/16/buggy_16.py",
+  "fixed_ref": "qiskit/16/fixed_16.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.12.0",
+  "test_command": "python -W ignore test_b16.py (buggy, esperado exit 1); python -W ignore test_f16.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug16/.venv). numpy fijado a 1.19.5. El issue indica Aer 0.1.1 (abr-2019); Terra < 0.12 no tiene wheel para Python 3.8 en Windows, se eligió Terra 0.12.0 (0.13.0 y 0.16.4 dan el mismo resultado). El programa y los tests usan BasicAer, no se instala qiskit-aer. Tests del Framework sin modificar. Dependencias completas en envs/bug16/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

@@ -1,0 +1,24 @@
+# bug: Bugs4Q-FW-39
+# version: fixed
+# run: 3
+# command: python -W ignore test_f39.py   (cwd: bugs/Bugs4Q-FW-39)
+# interpreter: envs/bug39/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T23:00:56
+# duration_s: 2.31
+# exit_code: 0
+----- stdout -----
+{'0010': 79, '1011': 69, '1001': 75, '0011': 70, '1110': 59, '0100': 56, '1111': 73, '1000': 66, '1100': 60, '0110': 67, '0111': 59, '1010': 67, '1101': 53, '0000': 64, '0001': 48, '0101': 59}
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug39\.venv\lib\site-packages\qiskit\circuit\equivalence.py:18: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug39\.venv\lib\site-packages\qiskit\version.py:20: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug39\.venv\lib\site-packages\qiskit\visualization\counts_visualization.py:226: MatplotlibDeprecationWarning: The label function was deprecated in Matplotlib 3.1 and will be removed in 3.8. Use Tick.label1 instead.
+  tick.label.set_fontsize(14)
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.991s
+
+OK
+

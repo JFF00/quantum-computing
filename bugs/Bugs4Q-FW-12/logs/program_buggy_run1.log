@@ -1,0 +1,30 @@
+# bug: Bugs4Q-FW-12
+# version: program_buggy
+# run: 1
+# command: BUG_PROGRAM=buggy_12.py python -W ignore test_program_12.py   (cwd: bugs/Bugs4Q-FW-12)
+# interpreter: envs/bug12/.venv (Python 3.8.20, win32)
+# date: 2026-11-27T20:48:34
+# duration_s: 44.83
+# exit_code: 1
+----- stdout -----
+bits clásicos: 4 cuentas: {'00 00': 262, '10 00': 267, '11 00': 255, '01 00': 240}
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug12\.venv\lib\site-packages\qiskit\circuit\equivalence.py:18: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug12\.venv\lib\site-packages\qiskit\version.py:20: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+F
+======================================================================
+FAIL: test_program_12 (__main__.TestProgram12)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_program_12.py", line 35, in test_program_12
+    self.assertEqual(circuit.num_clbits, 2,
+AssertionError: 4 != 2 : el circuito tiene 4 bits clásicos; las mediciones deberían ir al registro existente de 2 bits
+
+----------------------------------------------------------------------
+Ran 1 test in 44.194s
+
+FAILED (failures=1)
+

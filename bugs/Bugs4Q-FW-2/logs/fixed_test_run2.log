@@ -1,0 +1,21 @@
+# bug: Bugs4Q-FW-2
+# version: fixed
+# run: 2
+# command: python -W ignore test_f2.py   (cwd: bugs/Bugs4Q-FW-2)
+# interpreter: envs/bug2/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T22:58:23
+# duration_s: 2.03
+# exit_code: 0
+----- stdout -----
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug2\.venv\lib\site-packages\qiskit\circuit\equivalence.py:18: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug2\.venv\lib\site-packages\qiskit\version.py:20: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.840s
+
+OK
+

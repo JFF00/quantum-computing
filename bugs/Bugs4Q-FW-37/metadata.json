@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-37",
+  "source_url": "https://quantumcomputing.stackexchange.com/questions/6697/creating-and-running-parallel-circuits-in-qiskit",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/37/buggy_37.py",
+  "fixed_ref": "qiskit/37/fixed_37.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.12.0, qiskit-aer 0.4.0",
+  "test_command": "python -W ignore test_b37.py (buggy, esperado exit 1); python -W ignore test_f37.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug37/.venv). numpy fijado a 1.19.5. La pregunta (jul-2019) corresponde a Terra 0.8, donde compile solo daba DeprecationWarning; Terra 0.8-0.11 no tiene wheel cp38 para Windows, se eligió Terra 0.12.0 + Aer 0.4.0 (compile ya eliminado). El test buggy falla con TypeError (usa el compile incorporado de Python); buggy_37.py falla con ImportError. Tests del Framework adaptados: se eliminó el try/except/else que hacía pasar el test cuando había excepción. Dependencias completas en envs/bug37/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

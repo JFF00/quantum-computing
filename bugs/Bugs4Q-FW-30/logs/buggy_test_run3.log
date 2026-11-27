@@ -1,0 +1,38 @@
+# bug: Bugs4Q-FW-30
+# version: buggy
+# run: 3
+# command: python -W ignore test_b30.py   (cwd: bugs/Bugs4Q-FW-30)
+# interpreter: envs/bug30/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T22:49:38
+# duration_s: 9.07
+# exit_code: 1
+----- stdout -----
+{'1111': 13906, '0100': 4642, '1001': 6512, '1010': 12372, '0111': 13795, '0110': 4608, '1000': 6628, '1101': 4701, '0010': 12169, '1011': 12601, '0000': 6623, '1100': 4622, '1110': 4648, '0011': 12146, '0001': 6589, '0101': 4510}
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug30\.venv\lib\site-packages\qiskit\version.py:21: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug30\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_lite\fastsparse.py:57: DeprecationWarning: Please use `upcast` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug30\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_lite\fastsparse.py:57: DeprecationWarning: Please use `isdense` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug30\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_lite\fastsparse.py:57: DeprecationWarning: Please use `isscalarlike` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug30\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_lite\fastsparse.py:57: DeprecationWarning: Please use `get_index_dtype` from the `scipy.sparse` namespace, the `scipy.sparse.sputils` namespace is deprecated.
+  from scipy.sparse.sputils import (upcast, isdense, isscalarlike, get_index_dtype)
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug30\.venv\lib\site-packages\qiskit\providers\aer\pulse\qutip_lite\fastsparse.py:58: DeprecationWarning: Please use `SparseEfficiencyWarning` from the `scipy.sparse` namespace, the `scipy.sparse.base` namespace is deprecated.
+  from scipy.sparse.base import SparseEfficiencyWarning
+F
+======================================================================
+FAIL: test_f30 (__main__.TestAerSimulation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_b30.py", line 70, in test_f30
+    self.assertDictAlmostEqual(expected, freqs, delta=0.01)
+AssertionError: ('1110': 0.057 != 0.03546142578125), ('0010': 0.057 != 0.09284210205078125), ('1100': 0.077 != 0.0352630615234375), ('1011': 0.05 != 0.09613800048828125), ('0011': 0.076 != 0.0926666259765625), ('0110': 0.057 != 0.03515625), ('0000': 0.076 != 0.05052947998046875), ('1101': 0.057 != 0.03586578369140625), ('0111': 0.077 != 0.10524749755859375), ('0101': 0.057 != 0.0344085693359375), ('1111': 0.076 != 0.1060943603515625), ('1010': 0.05 != 0.094390869140625), ('0100': 0.076 != 0.0354156494140625) within 0.01 delta
+
+----------------------------------------------------------------------
+Ran 1 test in 7.304s
+
+FAILED (failures=1)
+

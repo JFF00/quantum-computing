@@ -1,0 +1,30 @@
+# bug: Bugs4Q-FW-12
+# version: fixed (test ORIGINAL del Framework, sin modificar)
+# run: 1
+# command: python -W ignore test_f12.py   (cwd: bugs/Bugs4Q-FW-12/framework_tests)
+# interpreter: envs/bug12/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T22:54:46
+# duration_s: 2
+# exit_code: 1
+----- stdout -----
+{'11': 226, '01': 264, '00': 254, '10': 280}
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug12\.venv\lib\site-packages\qiskit\circuit\equivalence.py:18: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug12\.venv\lib\site-packages\qiskit\version.py:20: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+F
+======================================================================
+FAIL: test_f12 (__main__.TestAerSimulation)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_f12.py", line 23, in test_f12
+    self.assertIn('10 00', str(res.get_counts()))
+AssertionError: '10 00' not found in "{'11': 226, '01': 264, '00': 254, '10': 280}"
+
+----------------------------------------------------------------------
+Ran 1 test in 0.427s
+
+FAILED (failures=1)
+

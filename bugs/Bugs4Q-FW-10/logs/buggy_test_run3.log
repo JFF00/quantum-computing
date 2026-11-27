@@ -1,0 +1,41 @@
+# bug: Bugs4Q-FW-10
+# version: buggy
+# run: 3
+# command: python -W ignore test_b10.py   (cwd: bugs/Bugs4Q-FW-10)
+# interpreter: envs/bug10/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T23:03:13
+# duration_s: 1.11
+# exit_code: 1
+----- stdout -----
+     ┌──────────────┐
+q_0: ┤ U3(0,0,0.24) ├
+     └──────────────┘
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug10\.venv\lib\site-packages\qiskit\version.py:21: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug10\.venv\lib\site-packages\qiskit\dagcircuit\dagcircuit.py:31: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+F
+======================================================================
+FAIL: test_b10 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_b10.py", line 11, in test_b10
+    self.assertEqual(str(qc.decompose()),'     ┌──────────┐\nq_0: ┤ U1(0.24) ├\n     └──────────┘')
+AssertionError: '     ┌──────────────┐\nq_0: ┤ U3(0,0,0.24) ├\n     └──────────────┘' != '     ┌──────────┐\nq_0: ┤ U1(0.24) ├\n     └──────────┘'
+-      ┌──────────────┐
+?       ----
++      ┌──────────┐
+- q_0: ┤ U3(0,0,0.24) ├
+?         ^ ----
++ q_0: ┤ U1(0.24) ├
+?         ^
+-      └──────────────┘?                 ----
++      └──────────┘
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)
+

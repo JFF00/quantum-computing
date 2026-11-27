@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-10",
+  "source_url": "https://github.com/Qiskit/qiskit-terra/issues/4144",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/10/buggy_10.py",
+  "fixed_ref": "qiskit/10/fixed_10.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.13.0",
+  "test_command": "python -W ignore test_b10.py (buggy, esperado exit 1); python -W ignore test_f10.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug10/.venv). numpy fijado a 1.19.5. El issue indica Terra 'latest' (abr-2020); se eligió 0.13.0 (0.12.0 dibuja el estado inicial |0> y rompe ambos tests; 0.13.0-0.16.4 cumplen buggy-falla/fixed-pasa). Tests del Framework sin modificar. Dependencias completas en envs/bug10/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

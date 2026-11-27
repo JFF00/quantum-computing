@@ -1,0 +1,47 @@
+# bug: Bugs4Q-FW-14
+# version: buggy
+# run: 1
+# command: python -W ignore test_b14.py   (cwd: bugs/Bugs4Q-FW-14)
+# interpreter: envs/bug14/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T22:53:23
+# duration_s: 51.65
+# exit_code: 1
+----- stdout -----
+                         
+q_0: ─────────────■──────
+     ┌───┐┌─────┐ │ ┌───┐
+q_1: ┤ H ├┤ SDG ├─■─┤ H ├
+     └───┘└─────┘   └───┘
+ComposedOp([
+  OperatorMeasurement(1.0 * ZI
+  + (-0+1j) * YI),
+  CircuitStateFn(
+                           
+  q_0: ─────────────■──────
+       ┌───┐┌─────┐ │ ┌───┐
+  q_1: ┤ H ├┤ SDG ├─■─┤ H ├
+       └───┘└─────┘   └───┘
+  )
+])
+Eval  (-2.22e-16+0.9999999999999992j)
+Qasm  (0.003819999999999934+0j)
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug14\.venv\lib\site-packages\qiskit\circuit\equivalence.py:18: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug14\.venv\lib\site-packages\qiskit\version.py:20: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+F
+======================================================================
+FAIL: test_b14 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_b14.py", line 33, in test_b14
+    self.assertAlmostEqual(complex(qasm_val), complex(eval_val), delta=0.05)
+AssertionError: (0.003819999999999934+0j) != (-2.22e-16+0.9999999999999992j) within 0.05 delta (1.0000072961733821 difference)
+
+----------------------------------------------------------------------
+Ran 1 test in 21.969s
+
+FAILED (failures=1)
+

@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-26",
+  "source_url": "https://stackoverflow.com/questions/62661255/2-entangle-qubit-gives-all-states-with-25",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/26/buggy_26.py",
+  "fixed_ref": "qiskit/26/fixed_26.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.17.0, qiskit-aer 0.8.0",
+  "test_command": "python -W ignore test_b26.py (buggy, esperado exit 1); python -W ignore test_f26.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug26/.venv). numpy fijado a 1.19.5. La pregunta (jun-2020) no trae código ni versiones; con Terra 0.14.2+Aer 0.5.2 y Terra 0.16.4+Aer 0.7.6 el código del Framework no se ejecuta (backend.run no acepta circuitos), así que se eligió Terra 0.17.0+Aer 0.8.0. Ambos tests adaptados: delta 500 -> 100 y valor esperado del buggy igual al del fixed ({'10':500,'01':500}). Test estadístico sin semilla. Dependencias completas en envs/bug26/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

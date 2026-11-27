@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-24",
+  "source_url": "https://stackoverflow.com/questions/64707625/visualizing-circuits-in-qiskit-with-matplotlib",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/24/buggy_24.py",
+  "fixed_ref": "qiskit/24/fixed_24.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.16.0, qiskit-ibmq-provider 0.11.0",
+  "test_command": "python -W ignore test_b24.py (buggy, esperado exit 1); python -W ignore test_f24.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug24/.venv). Fijados numpy 1.19.5, matplotlib 3.3.4, pylatexenc 2.11 (draw mpl) y qiskit-ibmq-provider 0.11.0 (solo por 'from qiskit import IBMQ'). La pregunta (nov-2020) no indica versiones; se eligió Terra 0.16.0 por fecha. Reproducción parcial: el AttributeError por conflicto de nombres en Jupyter no se reproduce como script; se reproduce el TypeError de qr(0). test_b24.py adaptado (assertRaises(TypeError) sustituido por try/except + self.fail, como en test_f24.py); test_f24.py sin cambios. Dependencias completas en envs/bug24/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

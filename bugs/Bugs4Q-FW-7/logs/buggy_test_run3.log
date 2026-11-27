@@ -1,0 +1,77 @@
+# bug: Bugs4Q-FW-7
+# version: buggy
+# run: 3
+# command: python -W ignore test_b7.py   (cwd: bugs/Bugs4Q-FW-7)
+# interpreter: envs/bug7/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T22:06:21
+# duration_s: 1.08
+# exit_code: 1
+----- stdout -----
+      ┌──────┐
+qr_0: ┤1     ├
+      │      │
+qr_1: ┤0 ghz ├
+      │      │
+qr_2: ┤2     ├
+      └──┬───┘
+qr_3: ───■────
+              
+      ┌──────┐
+qr_0: ┤1     ├
+      │      │
+qr_1: ┤0 ghz ├
+      │      │
+qr_2: ┤2     ├
+      └──────┘
+qr_3: ────────
+              
+      ┌──────┐
+qr_0: ┤2     ├
+      │      │
+qr_1: ┤0     ├
+      │  ghz │
+qr_2: ┤      ├
+      │      │
+qr_3: ┤1     ├
+      └──────┘
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug7\.venv\lib\site-packages\qiskit\version.py:21: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug7\.venv\lib\site-packages\qiskit\dagcircuit\dagcircuit.py:31: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+F
+======================================================================
+FAIL: test_b7 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_b7.py", line 44, in test_b7
+    self.assertEqual(str(dag_to_circuit(dag)),'      ┌──────┐\nqr_0: ┤1     ├\n      │      │\nqr_1: ┤0 ghz ├\n      │      │\nqr_2: ┤2     ├\n      └──────┘\nqr_3: ────────\n              ')
+AssertionError: '    [14 chars]_0: ┤2     ├\n      │      │\nqr_1: ┤0     ├\n[74 chars]───┘' != '    [14 chars]_0: ┤1     ├\n      │      │\nqr_1: ┤0 ghz ├\n[74 chars]    '
+        ┌──────┐
+- qr_0: ┤2     ├
+?        ^
++ qr_0: ┤1     ├
+?        ^
+        │      │
+- qr_1: ┤0     ├
+?          ^^^
++ qr_1: ┤0 ghz ├
+?          ^^^
+-       │  ghz │
+- qr_2: ┤      ├
+        │      │
+- qr_3: ┤1     ├
+?    ^   ^
++ qr_2: ┤2     ├
+?    ^   ^
+-       └──────┘+       └──────┘
+?               +
++ qr_3: ────────
++               
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (failures=1)
+

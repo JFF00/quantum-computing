@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-12",
+  "source_url": "https://github.com/Qiskit/qiskit-terra/issues/6571",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/12/buggy_12.py",
+  "fixed_ref": "qiskit/12/fixed_12.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.17.4, qiskit-aer 0.8.2",
+  "test_command": "python -W ignore test_b12.py (buggy, esperado exit 1); python -W ignore test_f12.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug12/.venv). numpy fijado a 1.19.5; qiskit-aer necesario (Aer qasm_simulator). El issue no indica versiones; se eligió Terra 0.17.4, última publicada antes del issue (0.18.3 + Aer 0.9.1 da el mismo resultado). Tests ADAPTADOS: los del Framework comprueban el comportamiento buggy (buggy pasa, fixed falla); se sustituyeron los assertIn('xx 00') por una comprobación de que las claves sean ['00','01','10','11']. Originales en framework_tests/. Dependencias completas en envs/bug12/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

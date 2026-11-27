@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-11",
+  "source_url": "https://github.com/Qiskit/qiskit-terra/issues/6892",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/11/buggy_11.py",
+  "fixed_ref": "qiskit/11/fixed_11.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.18.1",
+  "test_command": "python -W ignore test_b11.py (buggy, esperado exit 1); python -W ignore test_f11.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug11/.venv). numpy fijado a 1.19.5. El issue indica Terra 0.19.0 (dev, ago-2021); se eligió 0.18.1, última versión publicada antes del issue (0.19.2 da el mismo resultado). Tests del Framework sin modificar. Dependencias completas en envs/bug11/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

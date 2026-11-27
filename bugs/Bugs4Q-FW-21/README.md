@@ -39,31 +39,31 @@ El cambio está en el programa, no en la librería.
 
 | Elemento | Valor |
 |---|---|
-| Python | 3.8.20 (conda, plataforma `osx-64`) |
-| Qiskit | `qiskit-terra==0.18.3` |
-| Dependencias fijadas a mano | ninguna (todas las dependencias se resolvieron con `pip`) |
+| Python | 3.8.20 (CPython gestionado por `uv`, Windows x86-64) |
+| Qiskit | `qiskit-terra==0.18.3`, `qiskit-aer==0.9.1` |
+| Dependencias fijadas a mano | `qiskit-aer==0.9.1` (necesario para ejecutar `buggy_21.py`, que usa `Aer`) |
 | Dependencias completas | [`logs/environment.txt`](logs/environment.txt), [`../../envs/bug21/requirements.txt`](../../envs/bug21/requirements.txt) |
 
 El Framework no indica versiones. Se eligió Terra 0.18.3 porque en ella se cumple el criterio buggy-falla / fixed-pasa. Es una decisión del investigador, no un dato del benchmark.
 
-Los tests usan `BasicAer` en lugar de `Aer` (no se instala `qiskit-aer`). `test_f21.py` reproduce el programa fixed pero prepara `X` en lugar de `u(0.3, 0.2, 0.1)` para que el resultado sea determinista (teleportar `|1>` debe dar `1`).
+Historial del entorno: el bug se probó primero en macOS (conda `osx-64`, Python 3.8.20, Terra 0.18.3 sin `qiskit-aer`). Al seleccionarlo para el piloto se reconstruyó en Windows con `uv` y se añadió `qiskit-aer==0.9.1`, porque los tests a nivel de programa (sección 10) ejecutan `buggy_21.py`, que importa `Aer`. Los logs actuales son de Windows.
+
+Los tests `test_b21.py` y `test_f21.py` (escritos para el proyecto) usan `BasicAer` en lugar de `Aer`. `test_f21.py` reproduce el programa fixed pero prepara `X` en lugar de `u(0.3, 0.2, 0.1)` para que el resultado sea determinista (teleportar `|1>` debe dar `1`).
 
 ## 6. Cómo reproducirlo
 
-Desde la raíz del proyecto (Mac con Apple Silicon; Python 3.8 con Terra 0.18 se instala vía plataforma Intel):
+Desde la raíz del proyecto (Windows PowerShell; requiere [`uv`](https://docs.astral.sh/uv/) para obtener Python 3.8):
 
-```bash
-source ~/miniconda3/etc/profile.d/conda.sh
-ENV="$PWD/envs/bug21/.conda"
-CONDA_SUBDIR=osx-64 conda create -y -p "$ENV" python=3.8
-conda activate "$ENV"
-conda config --env --set subdir osx-64
-python -m pip install -r envs/bug21/requirements.txt
+```powershell
+uv python install 3.8
+uv venv --seed --python 3.8 envs/bug21/.venv
+envs/bug21/.venv/Scripts/python -m pip install -r envs/bug21/requirements.txt
 
-cd bugs/Bugs4Q-FW-21
-python -W ignore test_b21.py; echo "exit=$?"    # buggy: debe fallar (exit=1)
-python -W ignore test_f21.py; echo "exit=$?"    # fixed: debe pasar (exit=0)
+python scripts/run_bug_tests.py 21                  # tests test_b21/test_f21, 3 ejecuciones
+python scripts/run_bug_tests.py 21 --program-test   # test a nivel de programa (sección 10)
 ```
+
+En Linux/macOS: `envs/bug21/.venv/bin/python` en lugar de `envs/bug21/.venv/Scripts/python`.
 
 ## 7. Resultado esperado y observado
 
@@ -87,6 +87,34 @@ Limitaciones:
 
 ## 9. Pendientes
 
-- [ ] Análisis estático (LintQ) sin ejecutar: `static_warnings` en blanco en el inventario.
+- [x] Análisis estático (LintQ, 2026-11-27): 2 warnings `ql-operation-after-measurement` (alta) en buggy, 0 en fixed y 2 en fixed_21_min.py; patrón cercano, no la causa. Ver `static_analysis/`.
 - [ ] Revisión de licencia (`license_review` = `PENDIENTE` en `metadata.json`).
 - [ ] Decidir `selected` en `data/bugs_inventory.xlsx` y, si procede, añadir a `data/selected_bugs.csv`.
+
+## 10. Test a nivel de programa (piloto)
+
+Seleccionado para el piloto de la semana 10. Los tests de las secciones anteriores llevan el código del programa copiado dentro, por lo que no pueden validar un parche. [`test_program_21.py`](test_program_21.py) (escrito para el proyecto) ejecuta en cambio el **archivo** indicado en la variable `BUG_PROGRAM` mediante [`scripts/program_harness.py`](../../scripts/program_harness.py), que captura stdout, las variables finales del programa y las llamadas a `execute()` (inyectando `seed_simulator=1234` si el programa no fija semilla).
+
+**Oráculo.** Registra el circuito y el resultado de la llamada a `execute()` del programa (con semilla fija) y comprueba que el bit clásico del qubit 2 (el qubit teleportado) vale `1` en todos los shots. Si el qubit 2 no se mide en el circuito ejecutado, se lee el bit clásico 2. La referencia es `fixed_21_min.py` (corrección mínima escrita para el proyecto: mover `qc.measure(2, 2)` antes de `execute()`), porque `fixed_21.py` del Framework teleporta otro estado (`u(0.3, 0.2, 0.1)`) y no cumple este oráculo (comprobado: falla con `{'0': 1003, '1': 21}`). Las `cx`/`cz` incondicionales tras medir los qubits 0 y 1 equivalen a correcciones condicionadas (medición diferida), por lo que no hace falta `c_if`.
+
+El test no contiene el código corregido, para no filtrar la solución en la condición C1.
+
+```powershell
+cd bugs/Bugs4Q-FW-21
+$env:BUG_PROGRAM = "buggy_21.py"; ../../envs/bug21/.venv/Scripts/python -W ignore test_program_21.py   # exit 1
+$env:BUG_PROGRAM = "fixed_21_min.py"; ../../envs/bug21/.venv/Scripts/python -W ignore test_program_21.py   # exit 0
+# o bien, desde la raíz: python scripts/run_bug_tests.py 21 --program-test
+```
+
+| Programa | Esperado | Observado (3 ejecuciones) | Logs |
+|---|---|---|---|
+| `buggy_21.py` | falla (exit 1) | falla, exit 1 las 3 veces | [run1](logs/program_buggy_run1.log), [run2](logs/program_buggy_run2.log), [run3](logs/program_buggy_run3.log) |
+| `fixed_21_min.py` | pasa (exit 0) | pasa, exit 0 las 3 veces | [run1](logs/program_fixed_run1.log), [run2](logs/program_fixed_run2.log), [run3](logs/program_fixed_run3.log) |
+
+Fragmento de [`logs/program_buggy_run1.log`](logs/program_buggy_run1.log):
+
+```
+AssertionError: 1 != 0 : el qubit teleportado debería medirse siempre como '1': {'0': 1, '1': 0}
+```
+
+Para validar un parche: guardarlo como archivo en esta carpeta y ejecutar el test con `BUG_PROGRAM=<archivo del parche>`.

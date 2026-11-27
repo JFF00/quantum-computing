@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-20",
+  "source_url": "https://github.com/Qiskit/qiskit-metapackage/issues/193",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/20/buggy_20.py",
+  "fixed_ref": "qiskit/20/fixed_20.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.12.0, qiskit-aer 0.4.0",
+  "test_command": "python -W ignore test_b20.py (buggy, esperado exit 1); python -W ignore test_f20.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug20/.venv). numpy fijado a 1.19.5. El issue (abr-2019) no indica versiones; Terra < 0.12 y Aer < 0.4 no tienen wheel para Python 3.8 en Windows, se eligieron Terra 0.12.0 + Aer 0.4.0 (0.13.0+0.5.0 y 0.16.4+0.7.6 dan el mismo resultado). El Framework enlaza Qiskit/qiskit/issues/193 (repo hoy renombrado qiskit-metapackage). Tests del Framework adaptados: oráculo invertido (falla si se lanza AttributeError), porque el test_f original exige la excepción también en fixed. Dependencias completas en envs/bug20/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

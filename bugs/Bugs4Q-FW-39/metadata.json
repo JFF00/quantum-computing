@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-39",
+  "source_url": "https://quantumcomputing.stackexchange.com/questions/18448/how-to-perform-a-plot-histogram-for-a-circuit",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/39/buggy_39.py",
+  "fixed_ref": "qiskit/39/fixed_39.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.18.0, qiskit-aer 0.8.2",
+  "test_command": "python -W ignore test_b39.py (buggy, esperado exit 1); python -W ignore test_f39.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug39/.venv). La pregunta (jul-2021) no indica versiones; se eligieron Terra 0.18.0 + Aer 0.8.2 (qiskit 0.28.0); Terra 0.17.4 da el mismo resultado. Se añadió matplotlib para plot_histogram. Tests del Framework sin modificar; el de fixed es estadístico (64 +/- 30 cuentas por resultado, sin semilla). Dependencias completas en envs/bug39/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

@@ -1,0 +1,13 @@
+{
+  "bug_id": "Bugs4Q-FW-7",
+  "source_url": "https://github.com/Qiskit/qiskit-terra/issues/3799",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/7/buggy_7.py",
+  "fixed_ref": "qiskit/7/fixed_7.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.14.2",
+  "test_command": "python -W ignore test_b7.py (buggy, esperado exit 1); python -W ignore test_f7.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug7/.venv). numpy fijado a 1.19.5. El issue indica Terra master (feb-2020); se eligió 0.14.2 (0.13.0 cambia el dibujo y rompe ambos tests). Tests del Framework sin modificar. Dependencias completas en envs/bug7/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE",
+  "program_test": "BUG_PROGRAM=<programa> python -W ignore test_program_7.py (buggy_7.py: exit 1; fixed_7.py: exit 0)"
+}

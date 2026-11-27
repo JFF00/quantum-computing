@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-3",
+  "source_url": "https://github.com/Qiskit/qiskit-experiments/issues/302",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/3/buggy_3.py",
+  "fixed_ref": "qiskit/3/fixed_3.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-experiments 0.1.0, qiskit-terra 0.18.1, qiskit-aer 0.8.2",
+  "test_command": "python -W ignore test_b3.py (buggy, esperado exit 1); python -W ignore test_f3.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug3/.venv). Versiones de qiskit-experiments, terra y aer tomadas del issue; no se fijaron otras dependencias. Tests del Framework adaptados: test_b3(failed).py copiado como test_b3.py; en ambos tests la aserción final assertIn('AttributeError', tomo.circuits()) (nunca se cumple) se sustituyó por assertEqual(experiment.status(), 'DONE'); los originales se conservan como framework_tests/test_b3(failed).py y framework_tests/test_f3.py. Dependencias completas en envs/bug3/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

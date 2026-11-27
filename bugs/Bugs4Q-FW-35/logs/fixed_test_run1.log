@@ -1,0 +1,42 @@
+# bug: Bugs4Q-FW-35
+# version: fixed
+# run: 1
+# command: python -W ignore test_f35.py   (cwd: bugs/Bugs4Q-FW-35)
+# interpreter: envs/bug35/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T22:47:50
+# duration_s: 1.37
+# exit_code: 0
+----- stdout -----
+       ░ ┌─┐      
+q0_0: ─░─┤M├──────
+       ░ └╥┘┌─┐   
+q0_1: ─░──╫─┤M├───
+       ░  ║ └╥┘┌─┐
+q0_2: ─░──╫──╫─┤M├
+       ░  ║  ║ └╥┘
+q0_3: ─░──╫──╫──╫─
+       ░  ║  ║  ║ 
+q0_4: ─░──╫──╫──╫─
+       ░  ║  ║  ║ 
+q0_5: ─░──╫──╫──╫─
+       ░  ║  ║  ║ 
+q0_6: ─░──╫──╫──╫─
+       ░  ║  ║  ║ 
+c0_0: ════╩══╬══╬═
+             ║  ║ 
+c0_1: ═══════╩══╬═
+                ║ 
+c0_2: ══════════╩═
+                  
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug35\.venv\lib\site-packages\qiskit\version.py:21: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug35\.venv\lib\site-packages\qiskit\dagcircuit\dagcircuit.py:31: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.045s
+
+OK
+

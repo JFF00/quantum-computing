@@ -1,0 +1,36 @@
+# bug: Bugs4Q-FW-19
+# version: buggy
+# run: 1
+# command: python -W ignore test_b19.py   (cwd: bugs/Bugs4Q-FW-19)
+# interpreter: envs/bug19/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T23:07:26
+# duration_s: 8.76
+# exit_code: 1
+----- stdout -----
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug19\.venv\lib\site-packages\qiskit\version.py:21: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug19\.venv\lib\site-packages\qiskit\dagcircuit\dagcircuit.py:31: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+F
+======================================================================
+FAIL: test_b19 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_b19.py", line 21, in test_b19
+    qi.Operator.from_label('CX')
+qiskit.exceptions.QiskitError: 'Label contains invalid characters.'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "test_b19.py", line 24, in test_b19
+    self.fail('Exception raised: %s' % e)
+AssertionError: Exception raised: 'Label contains invalid characters.'
+
+----------------------------------------------------------------------
+Ran 1 test in 0.024s
+
+FAILED (failures=1)
+

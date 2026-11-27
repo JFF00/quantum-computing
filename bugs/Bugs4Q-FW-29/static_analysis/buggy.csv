@@ -1,0 +1,2 @@
+bug_id,variant,file,rule_id,rule_name,precision,severity,start_line,start_column,end_line,end_column,message
+Bugs4Q-FW-29,buggy,buggy_29.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,25,7,25,30,Circuit 'qpe' has more qubits (4) than classical  bits (3)

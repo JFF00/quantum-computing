@@ -1,0 +1,13 @@
+{
+  "bug_id": "Bugs4Q-FW-29",
+  "source_url": "https://quantumcomputing.stackexchange.com/questions/9246/quantum-phase-estimation-implementation",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/29/buggy_29.py",
+  "fixed_ref": "qiskit/29/fixed_29.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.12.0",
+  "test_command": "python -W ignore test_b29.py (buggy, esperado exit 1); python -W ignore test_f29.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug29/.venv). numpy fijado a 1.19.5. La pregunta (dic-2019) no indica versiones; Terra 0.11.x no tiene wheel para Python 3.8 en Windows, se eligió 0.12.0. Solo BasicAer. Tests del Framework sin modificar (probabilísticos, 1000 shots, 750 +/- 250). Dependencias completas en envs/bug29/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE",
+  "program_test": "BUG_PROGRAM=<programa> python -W ignore test_program_29.py (buggy_29.py: exit 1; fixed_29.py: exit 0)"
+}

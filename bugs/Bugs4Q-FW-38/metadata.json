@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-38",
+  "source_url": "https://quantumcomputing.stackexchange.com/questions/20894/saving-statevector-on-more-than-one-location-in-a-quantum-circuit-in-qiskit",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/38/buggy_38.py",
+  "fixed_ref": "qiskit/38/fixed_38.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.18.1, qiskit-aer 0.8.2",
+  "test_command": "python -W ignore test_b38.py (buggy, esperado exit 1); python -W ignore test_f38.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug38/.venv). La pregunta (ago-2021) no indica versiones; se eligieron Terra 0.18.1 + Aer 0.8.2 (qiskit 0.29.0); Terra 0.18.3 + Aer 0.9.1 da el mismo resultado. Tests del Framework adaptados: se eliminó el try/except/else que hacía pasar el test cuando había excepción. Dependencias completas en envs/bug38/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

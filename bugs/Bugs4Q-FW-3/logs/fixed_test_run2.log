@@ -1,0 +1,24 @@
+# bug: Bugs4Q-FW-3
+# version: fixed
+# run: 2
+# command: python -W ignore test_f3.py   (cwd: bugs/Bugs4Q-FW-3)
+# interpreter: envs/bug3/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T23:00:18
+# duration_s: 6.72
+# exit_code: 0
+----- stdout -----
+There are 12 circuits to run
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit\circuit\equivalence.py:18: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit\version.py:20: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug3\.venv\lib\site-packages\qiskit_experiments\database_service\db_analysis_result.py:22: DeprecationWarning: The package qiskit.providers.ibmq is being deprecated. Please see https://ibm.biz/provider_migration_guide to get instructions on how to migrate to qiskit-ibm-provider (https://github.com/Qiskit/qiskit-ibm-provider) and qiskit-ibm-runtime (https://github.com/Qiskit/qiskit-ibm-runtime).
+  from .utils import save_data, qiskit_version
+.
+----------------------------------------------------------------------
+Ran 1 test in 4.561s
+
+OK
+

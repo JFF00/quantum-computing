@@ -1,0 +1,3 @@
+bug_id,variant,file,rule_id,rule_name,precision,severity,start_line,start_column,end_line,end_column,message
+Bugs4Q-FW-8,fixed,fixed_8.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,7,8,7,25,Circuit 'circ' has more qubits (3) than classical  bits (0)
+Bugs4Q-FW-8,fixed,fixed_8.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,14,6,14,31,Circuit 'qc' has more qubits (4) than classical  bits (0)

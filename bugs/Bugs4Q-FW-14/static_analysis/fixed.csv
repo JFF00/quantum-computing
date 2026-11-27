@@ -1,0 +1,2 @@
+bug_id,variant,file,rule_id,rule_name,precision,severity,start_line,start_column,end_line,end_column,message
+Bugs4Q-FW-14,fixed,fixed_14.py,ql-unmeasurable-qubits,ql-unmeasurable-qubits,medium,warning,6,9,6,26,Circuit 'state' has more qubits (2) than classical  bits (0)

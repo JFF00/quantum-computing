@@ -1,0 +1,34 @@
+# bug: Bugs4Q-FW-11
+# version: buggy
+# run: 1
+# command: python -W ignore test_b11.py   (cwd: bugs/Bugs4Q-FW-11)
+# interpreter: envs/bug11/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T22:49:24
+# duration_s: 43.01
+# exit_code: 1
+----- stdout -----
+ParameterView([ParameterVectorElement(θ[0]), ParameterVectorElement(θ[1]), ParameterVectorElement(θ[2]), ParameterVectorElement(θ[3]), ParameterVectorElement(θ[4]), ParameterVectorElement(θ[5]), ParameterVectorElement(θ[6]), ParameterVectorElement(θ[7])])
+0.001
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug11\.venv\lib\site-packages\qiskit\circuit\equivalence.py:18: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug11\.venv\lib\site-packages\qiskit\version.py:20: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+F
+======================================================================
+FAIL: test_b11 (__main__.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "test_b11.py", line 16, in test_b11
+    self.assertEqual(str(circuit.global_phase),'x')
+AssertionError: '0.001' != 'x'
+- 0.001
++ x
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.668s
+
+FAILED (failures=1)
+

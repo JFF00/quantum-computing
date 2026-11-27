@@ -1,0 +1,29 @@
+# bug: Bugs4Q-FW-38
+# version: fixed
+# run: 3
+# command: python -W ignore test_f38.py   (cwd: bugs/Bugs4Q-FW-38)
+# interpreter: envs/bug38/.venv (Python 3.8.20, win32)
+# date: 2026-11-15T22:49:52
+# duration_s: 1.46
+# exit_code: 0
+----- stdout -----
+Statevector([1.+0.j, 0.+0.j, 0.+0.j, 0.+0.j],
+            dims=(2, 2))
+Statevector([ 0.70710678+0.j,  0.70710678+0.j,  0.        +0.j,
+             -0.        +0.j],
+            dims=(2, 2))
+Statevector([0.70710678+0.j, 0.        +0.j, 0.        +0.j,
+             0.70710678+0.j],
+            dims=(2, 2))
+
+----- stderr -----
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug38\.venv\lib\site-packages\qiskit\circuit\equivalence.py:18: DeprecationWarning: The retworkx package is deprecated and has been renamed to rustworkx. Rustworkx is a drop-in replacement and can be used by replacing `import retworkx` with import `rustworkx`. 
+  import retworkx as rx
+D:\Informatica\5TO AÑO\SEGUNDO SEMESTRE\Quantum\quantum-computing\envs\bug38\.venv\lib\site-packages\qiskit\version.py:20: DeprecationWarning: pkg_resources is deprecated as an API. See https://setuptools.pypa.io/en/latest/pkg_resources.html
+  import pkg_resources
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK
+

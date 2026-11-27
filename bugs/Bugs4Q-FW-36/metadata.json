@@ -1,0 +1,12 @@
+{
+  "bug_id": "Bugs4Q-FW-36",
+  "source_url": "https://quantumcomputing.stackexchange.com/questions/5557/wait-gate-throws-an-error-notimplementederror-no-decomposition-rules-defin",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/36/buggy_36.py",
+  "fixed_ref": "qiskit/36/fixed_36.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.13.0, qiskit-aer 0.5.0",
+  "test_command": "python -W ignore test_b36.py (buggy, esperado exit 1); python -W ignore test_f36.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug36/.venv). numpy fijado a 1.19.5. La pregunta (feb-2019) usa Python 3.6 + Terra 0.7.0 + Aer 0.1.1, no instalables; Terra 0.12.0 + Aer 0.4.0 hace fallar también fixed (no existe id); se eligió Terra 0.13.0 + Aer 0.5.0. El buggy falla con AttributeError (wait eliminado), no con el NotImplementedError de la pregunta. Tests del Framework adaptados: se eliminó el try/except/else que hacía pasar el test cuando había excepción. Dependencias completas en envs/bug36/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE"
+}

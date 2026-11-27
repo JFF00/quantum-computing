@@ -1,0 +1,13 @@
+{
+  "bug_id": "Bugs4Q-FW-14",
+  "source_url": "https://github.com/Qiskit/qiskit-terra/issues/6255",
+  "source_commit": "e596a251ec723e58a042557277d584d56ffa1781",
+  "buggy_ref": "qiskit/14/buggy_14.py",
+  "fixed_ref": "qiskit/14/fixed_14.py",
+  "python_version": "3.8.20",
+  "qiskit_version": "qiskit-terra 0.17.0, qiskit-aer 0.8.0",
+  "test_command": "python -W ignore test_b14.py (buggy, esperado exit 1); python -W ignore test_f14.py (fixed, esperado exit 0)",
+  "environment_notes": "Windows x86-64, venv con CPython 3.8.20 gestionado por uv (envs/bug14/.venv). numpy fijado a 1.19.5; qiskit-aer necesario (Aer qasm_simulator). Terra 0.17.0 es la versión del issue (también probadas 0.17.4, 0.18.3 y 0.19.2). Tests ADAPTADOS: los del Framework comparan str(eval()) con una cadena exacta de 16 decimales y fallan en buggy y fixed con 0.17.0; se sustituyó por comparar QASM con eval() (delta 0.05) y se corrigieron los nombres de método intercambiados. Originales en framework_tests/. Muestreo sin semilla (100000 shots). Dependencias completas en envs/bug14/requirements.txt y logs/environment.txt.",
+  "license_review": "PENDIENTE",
+  "program_test": "BUG_PROGRAM=<programa> python -W ignore test_program_14.py (buggy_14.py: exit 1; fixed_14.py: exit 0)"
+}
